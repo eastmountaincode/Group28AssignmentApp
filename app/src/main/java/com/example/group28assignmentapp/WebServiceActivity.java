@@ -1,14 +1,18 @@
 package com.example.group28assignmentapp;
 
+import static android.view.View.Z;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.group28assignmentapp.databinding.ActivityMainBinding;
 import com.example.group28assignmentapp.databinding.ActivityWebServiceBinding;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +26,8 @@ public class WebServiceActivity extends AppCompatActivity {
     private ActivityWebServiceBinding binding;
     private TextView dummyText;
     private URL url;
+    private Handler handler;
+    String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,44 +37,9 @@ public class WebServiceActivity extends AppCompatActivity {
         setContentView(view);
 
         dummyText = binding.dummyText;
-
-//        try {
-//            url = new URL("https://google.com");
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        HttpURLConnection conn = null;
-//        try {
-//            conn = (HttpURLConnection) url.openConnection();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            conn.setRequestMethod("GET");
-//        } catch (ProtocolException e) {
-//            e.printStackTrace();
-//        }
-//        conn.setDoInput(true);
-//
-//        try {
-//            conn.connect();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Read response.
-//        InputStream inputStream = null;
-//        try {
-//            inputStream = conn.getInputStream();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        String resp = WebServiceActivity.convertStreamToString(inputStream);
-//        dummyText.setText(resp);
-
-
+        handler = new Handler();
+        MyThread thread = new MyThread();
+        thread.start();
 
     }
 
@@ -86,6 +57,41 @@ public class WebServiceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private class MyThread extends Thread {
+        @Override
+        public void run() {
+
+            try {
+                url = new URL("https://google.com");
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                try {
+                    urlc.setRequestProperty("Connection", "close");
+                    urlc.setConnectTimeout(1000 * 30); // Timeout is in seconds
+
+                    InputStream inputStream = new BufferedInputStream(urlc.getInputStream());
+                    result = WebServiceActivity.convertStreamToString(inputStream);
+                }
+                finally {
+                    urlc.disconnect();
+                }
+
+
+            }
+            catch (MalformedURLException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    dummyText.setText(result);
+                }
+            });
+
+        }
     }
 
 
