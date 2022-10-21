@@ -13,15 +13,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.group28assignmentapp.databinding.FragmentSongListBinding;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.io.BufferedInputStream;
+import org.json.JSONObject;
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class SongListFragment extends Fragment {
 
@@ -31,6 +38,9 @@ public class SongListFragment extends Fragment {
     private Handler handler;
     private URL url;
     String result = "";
+    private String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
+    private JsonObject root;
+    private String genre;
 
 
     public SongListFragment() {
@@ -60,8 +70,8 @@ public class SongListFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void updateSongList(String genre) {
-        dummyText.setText(genre);
+    public void getNewChart(String genre) {
+        this.genre = genre;
         handler = new Handler();
         MyThread thread = new MyThread();
         thread.start();
@@ -84,35 +94,39 @@ public class SongListFragment extends Fragment {
         return "";
     }
 
+
         private class MyThread extends Thread {
         @Override
         public void run() {
 
             try {
-                url = new URL("https://google.com");
-                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                try {
-                    urlc.setRequestProperty("Connection", "close");
-                    urlc.setConnectTimeout(1000 * 30); // Timeout is in seconds
-
-                    InputStream inputStream = new BufferedInputStream(urlc.getInputStream());
-                    result = SongListFragment.convertStreamToString(inputStream);
+                if (genre.equals("Top Tracks")) {
+                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
-                finally {
-                    urlc.disconnect();
+                if (genre.equals("Top Artists")) {
+                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
+                HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                connection.connect();
 
+                InputStream inputStream = connection.getInputStream();
 
-            }
-            catch (MalformedURLException e1) {
-                e1.printStackTrace();
+                result = convertStreamToString(inputStream);
+                JsonElement jsonElement = JsonParser.parseString(result);
+                root = jsonElement.getAsJsonObject();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    dummyText.setText(result);
+
+                    dummyText.setText(root.toString());
                 }
             });
 

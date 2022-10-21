@@ -3,7 +3,6 @@ package com.example.group28assignmentapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -66,12 +65,12 @@ public class GenreGetFragment extends Fragment {
                 Log.d("asd", "genre is " + viewModel.getCurrentGenre());
                 Log.d("asd", "genre is " + viewModel.getCurrentGenre());
                 SongListFragment songListFragment = (SongListFragment) getParentFragmentManager().findFragmentByTag("SongList");
-                songListFragment.updateSongList(genreToGet);
+                songListFragment.getNewChart(genreToGet);
 
             }
         });
 
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(), R.array.genres, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(), R.array.charts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
 
