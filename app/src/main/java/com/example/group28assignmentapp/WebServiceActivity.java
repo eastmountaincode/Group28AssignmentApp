@@ -35,64 +35,75 @@ public class WebServiceActivity extends AppCompatActivity {
         binding = ActivityWebServiceBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        dummyText = binding.dummyText;
-        handler = new Handler();
-        MyThread thread = new MyThread();
-        thread.start();
-
-    }
-
-    public static String convertStreamToString(InputStream inputStream){
-        StringBuilder stringBuilder=new StringBuilder();
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
-            String len;
-            while((len=bufferedReader.readLine())!=null){
-                stringBuilder.append(len);
-            }
-            bufferedReader.close();
-            return stringBuilder.toString().replace(",", ",\n");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.bottomPart, GenreGetFragment.newInstance())
+                    .commitNow();
         }
-        return "";
-    }
-
-    private class MyThread extends Thread {
-        @Override
-        public void run() {
-
-            try {
-                url = new URL("https://google.com");
-                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                try {
-                    urlc.setRequestProperty("Connection", "close");
-                    urlc.setConnectTimeout(1000 * 30); // Timeout is in seconds
-
-                    InputStream inputStream = new BufferedInputStream(urlc.getInputStream());
-                    result = WebServiceActivity.convertStreamToString(inputStream);
-                }
-                finally {
-                    urlc.disconnect();
-                }
-
-
-            }
-            catch (MalformedURLException e1) {
-                e1.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    dummyText.setText(result);
-                }
-            });
-
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.topPart, SongListFragment.newInstance(), "SongList")
+                    .commitNow();
         }
+
+
+//        dummyText = binding.dummyText;
+//        handler = new Handler();
+//        MyThread thread = new MyThread();
+//        thread.start();
+
     }
+
+//    public static String convertStreamToString(InputStream inputStream){
+//        StringBuilder stringBuilder=new StringBuilder();
+//        try {
+//            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+//            String len;
+//            while((len=bufferedReader.readLine())!=null){
+//                stringBuilder.append(len);
+//            }
+//            bufferedReader.close();
+//            return stringBuilder.toString().replace(",", ",\n");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
+//
+//    private class MyThread extends Thread {
+//        @Override
+//        public void run() {
+//
+//            try {
+//                url = new URL("https://google.com");
+//                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+//                try {
+//                    urlc.setRequestProperty("Connection", "close");
+//                    urlc.setConnectTimeout(1000 * 30); // Timeout is in seconds
+//
+//                    InputStream inputStream = new BufferedInputStream(urlc.getInputStream());
+//                    result = WebServiceActivity.convertStreamToString(inputStream);
+//                }
+//                finally {
+//                    urlc.disconnect();
+//                }
+//
+//
+//            }
+//            catch (MalformedURLException e1) {
+//                e1.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    dummyText.setText(result);
+//                }
+//            });
+//
+//        }
+//    }
 
 
 }

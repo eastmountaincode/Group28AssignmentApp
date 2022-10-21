@@ -1,4 +1,30 @@
 <resources>
     <string name="app_name">Group28AssignmentApp</string>
     <string name="at_your_service_str">At Your Service</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_str">Get</string>
+
+
+    <string-array name="genres">
+        <item>Blues</item>
+        <item>Brazilian Funk and Hip Hop</item>
+        <item>Country</item>
+        <item>Dance/Electronic</item>
+        <item>Folk</item>
+        <item>Hip Hop</item>
+        <item>Indie Pop Funk and Hip Hop</item>
+        <item>Jazz</item>
+        <item>K Pop</item>
+        <item>Latin</item>
+        <item>Metal</item>
+        <item>Música Mexicana</item>
+        <item>Pop</item>
+        <item>R&amp;B</item>
+        <item>Rock</item>
+        <item>Sertanejo and Forró</item>
+        <item>Urbano</item>
+    </string-array>
+
+
 </resources>
