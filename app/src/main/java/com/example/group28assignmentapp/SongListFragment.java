@@ -47,12 +47,8 @@ public class SongListFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void updateSongList() {
-        dummyText.setText(viewModel.getCurrentGenre());
-        Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-        Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-        Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-        Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-        Log.d("asd", "genre is " + viewModel.getCurrentGenre());
+    public void updateSongList(String genre) {
+        dummyText.setText(genre);
+
     }
 }

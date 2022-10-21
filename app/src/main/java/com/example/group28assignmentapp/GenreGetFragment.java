@@ -66,7 +66,7 @@ public class GenreGetFragment extends Fragment {
                 Log.d("asd", "genre is " + viewModel.getCurrentGenre());
                 Log.d("asd", "genre is " + viewModel.getCurrentGenre());
                 SongListFragment songListFragment = (SongListFragment) getParentFragmentManager().findFragmentByTag("SongList");
-                songListFragment.updateSongList();
+                songListFragment.updateSongList(genreToGet);
 
             }
         });
