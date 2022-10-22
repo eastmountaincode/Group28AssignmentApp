@@ -158,6 +158,7 @@ public class SongListFragment extends Fragment {
             });
         }
 
+
         private void handleTopTracks(JsonObject root) {
             handler.post(() -> {
                 JsonArray topSongs = root.get("tracks")
@@ -181,10 +182,12 @@ public class SongListFragment extends Fragment {
                     e.setRank(rank);
                     listOfTopSongs.add(e);
                 }
+
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
             });
+
         }
     }
 }
