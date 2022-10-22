@@ -5,21 +5,28 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
-    private String category;  // Top Tracks or Top Artist
+    private Category category;  // Top Tracks or Top Artist
     private ArrayList<Entry> entryList;
 
     public MainViewModel() {
-        this.category = "ABC";
+        this.category = Category.TOP_SONGS;
         this.entryList = new ArrayList<>();
         Entry e = new Entry("No Entries Loaded", "Press GET", "");
         this.entryList.add(e);
     }
 
     public void setCategory(String value) {
-        this.category = value;
+        if (value.equals("Top Tracks")) {
+            this.category = Category.TOP_SONGS;
+        } else {
+            this.category = Category.TOP_ARTISTS;
+        }
     }
 
-    public String getCategory() {
+    public Category getCategory() {
+        if (this.category == null) {
+            this.category = Category.TOP_SONGS;
+        }
         return this.category;
     }
 

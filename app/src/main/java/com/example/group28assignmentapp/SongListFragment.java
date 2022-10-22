@@ -38,7 +38,7 @@ public class SongListFragment extends Fragment {
     String result = "";
     private final String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
     private JsonObject root;
-    private String category;
+    private Category category;
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
@@ -77,7 +77,7 @@ public class SongListFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void getNewChart(String category) {
+    public void getNewChart(Category category) {
         this.category = category;
         handler = new Handler();
         MyThread thread = new MyThread();
@@ -106,10 +106,10 @@ public class SongListFragment extends Fragment {
         public void run() {
 
             try {
-                if (category.equals("Top Tracks")) {
+                if (category.equals(Category.TOP_SONGS)) {
                     url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
-                if (category.equals("Top Artists")) {
+                if (category.equals(Category.TOP_ARTISTS)) {
                     url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -125,7 +125,40 @@ public class SongListFragment extends Fragment {
                 e.printStackTrace();
             }
 
+            if (category.equals(Category.TOP_SONGS)) {
+                handleTopTracks(root);
+            } else {
+                handleTopArtists(root);
+            }
+        }
 
+        private void handleTopArtists(JsonObject root) {
+            handler.post(() -> {
+                JsonArray topArtists = root.get("artists")
+                        .getAsJsonObject()
+                        .get("artist")
+                        .getAsJsonArray();
+
+                int count = 0;
+                listOfTopSongs.clear();
+                for (JsonElement elem : topArtists) {
+                    count++;
+                    String artistName = elem.getAsJsonObject().get("name").getAsString();
+
+                    String rank = String.valueOf(count);
+                    Entry e = new Entry("", artistName, rank);
+                    e.setSubtitle("");
+                    e.setTitle(artistName);
+                    e.setRank(rank);
+                    listOfTopSongs.add(e);
+                }
+                viewModel.setEntryList(listOfTopSongs);
+                recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
+                        viewModel.getEntryList()));
+            });
+        }
+
+        private void handleTopTracks(JsonObject root) {
             handler.post(() -> {
                 JsonArray topSongs = root.get("tracks")
                         .getAsJsonObject()
@@ -133,6 +166,7 @@ public class SongListFragment extends Fragment {
                         .getAsJsonArray();
 
                 int count = 0;
+                listOfTopSongs.clear();
                 for (JsonElement elem : topSongs) {
                     count++;
                     String songName = elem.getAsJsonObject().get("name").getAsString();
@@ -142,8 +176,8 @@ public class SongListFragment extends Fragment {
                             .get("name").getAsString();
                     String rank = String.valueOf(count);
                     Entry e = new Entry(songName, artistName, rank);
-                    e.setArtistName(artistName);
-                    e.setSongTitle(songName);
+                    e.setSubtitle(artistName);
+                    e.setTitle(songName);
                     e.setRank(rank);
                     listOfTopSongs.add(e);
                 }
@@ -151,7 +185,6 @@ public class SongListFragment extends Fragment {
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
             });
-
         }
     }
 }

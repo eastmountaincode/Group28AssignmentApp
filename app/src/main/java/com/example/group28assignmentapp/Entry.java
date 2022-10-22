@@ -1,32 +1,30 @@
 package com.example.group28assignmentapp;
 
-import android.media.Image;
-
 public class Entry {
-    private String songTitle;
-    private String artistName;
+    private String title;
+    private String subtitle;
     private String rank;
 
-    public Entry(String songTitle, String artistName, String rank) {
-        this.songTitle = songTitle;
-        this.artistName = artistName;
+    public Entry(String title, String subtitle, String rank) {
+        this.title = title;
+        this.subtitle = subtitle;
         this.rank = rank;
     }
 
-    public String getSongTitle() {
-        return songTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSongTitle(String songTitle) {
-        this.songTitle = songTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getArtistName() {
-        return artistName;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getRank() {
@@ -39,6 +37,6 @@ public class Entry {
 
     @Override
     public String toString() {
-        return this.songTitle + "\n" + this.artistName + "\n" + "Rank = " + this.rank;
+        return this.title + "\n" + this.subtitle + "\n" + "Rank = " + this.rank;
     }
 }
