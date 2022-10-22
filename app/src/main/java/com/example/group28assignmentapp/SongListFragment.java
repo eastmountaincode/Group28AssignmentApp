@@ -127,7 +127,35 @@ public class SongListFragment extends Fragment {
 
             if (category.equals(Category.TOP_SONGS)) {
                 handleTopTracks(root);
+            } else {
+                handleTopArtists(root);
             }
+        }
+
+        private void handleTopArtists(JsonObject root) {
+            handler.post(() -> {
+                JsonArray topArtists = root.get("artists")
+                        .getAsJsonObject()
+                        .get("artist")
+                        .getAsJsonArray();
+
+                int count = 0;
+                listOfTopSongs.clear();
+                for (JsonElement elem : topArtists) {
+                    count++;
+                    String artistName = elem.getAsJsonObject().get("name").getAsString();
+
+                    String rank = String.valueOf(count);
+                    Entry e = new Entry("", artistName, rank);
+                    e.setArtistName("");
+                    e.setSongTitle(artistName);
+                    e.setRank(rank);
+                    listOfTopSongs.add(e);
+                }
+                viewModel.setEntryList(listOfTopSongs);
+                recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
+                        viewModel.getEntryList()));
+            });
         }
 
         private void handleTopTracks(JsonObject root) {
@@ -138,6 +166,7 @@ public class SongListFragment extends Fragment {
                         .getAsJsonArray();
 
                 int count = 0;
+                listOfTopSongs.clear();
                 for (JsonElement elem : topSongs) {
                     count++;
                     String songName = elem.getAsJsonObject().get("name").getAsString();
