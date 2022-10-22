@@ -124,8 +124,10 @@ public class SongListFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            handleTopTracks(root);
+        }
 
-
+        private void handleTopTracks(JsonObject root) {
             handler.post(() -> {
                 JsonArray topSongs = root.get("tracks")
                         .getAsJsonObject()
@@ -151,7 +153,6 @@ public class SongListFragment extends Fragment {
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
             });
-
         }
     }
 }
