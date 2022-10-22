@@ -38,7 +38,7 @@ public class SongListFragment extends Fragment {
     String result = "";
     private final String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
     private JsonObject root;
-    private String category;
+    private Category category;
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
@@ -77,7 +77,7 @@ public class SongListFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void getNewChart(String category) {
+    public void getNewChart(Category category) {
         this.category = category;
         handler = new Handler();
         MyThread thread = new MyThread();
@@ -106,10 +106,10 @@ public class SongListFragment extends Fragment {
         public void run() {
 
             try {
-                if (category.equals("Top Tracks")) {
+                if (category.equals(Category.TOP_SONGS)) {
                     url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
-                if (category.equals("Top Artists")) {
+                if (category.equals(Category.TOP_ARTISTS)) {
                     url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=c0355388e06690d06f415808862dc1fe&format=json");
                 }
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -124,7 +124,10 @@ public class SongListFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            handleTopTracks(root);
+
+            if (category.equals(Category.TOP_SONGS)) {
+                handleTopTracks(root);
+            }
         }
 
         private void handleTopTracks(JsonObject root) {
