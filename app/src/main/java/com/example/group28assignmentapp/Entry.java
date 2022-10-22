@@ -2,17 +2,15 @@ package com.example.group28assignmentapp;
 
 import android.media.Image;
 
-public class Song {
+public class Entry {
     private String songTitle;
     private String artistName;
     private String rank;
-    private Image albumArt;
 
-    public Song(String songTitle, String artistName, String rank, Image albumArt) {
+    public Entry(String songTitle, String artistName, String rank) {
         this.songTitle = songTitle;
         this.artistName = artistName;
         this.rank = rank;
-        this.albumArt = albumArt;
     }
 
     public String getSongTitle() {
@@ -39,11 +37,8 @@ public class Song {
         this.rank = rank;
     }
 
-    public Image getAlbumArt() {
-        return albumArt;
-    }
-
-    public void setAlbumArt(Image albumArt) {
-        this.albumArt = albumArt;
+    @Override
+    public String toString() {
+        return this.songTitle + "\n" + this.artistName + "\n" + "Rank = " + this.rank;
     }
 }

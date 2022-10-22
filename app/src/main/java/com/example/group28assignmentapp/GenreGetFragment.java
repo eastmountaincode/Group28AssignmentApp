@@ -19,7 +19,7 @@ public class GenreGetFragment extends Fragment {
     private Spinner spinner;
     private FragmentGenreGetBinding binding;
     private Button getButton;
-    private String genreToGet;
+    private String categoryToGet;  // Top Tracks or Top Artists
     private MainViewModel viewModel;
 
 
@@ -34,8 +34,6 @@ public class GenreGetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -51,22 +49,15 @@ public class GenreGetFragment extends Fragment {
         getButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                genreToGet = spinner.getSelectedItem().toString();
-                viewModel.setCurrentGenre(genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
+                categoryToGet = spinner.getSelectedItem().toString();
+                viewModel.setCategory(categoryToGet);
+                Log.d("asd", "GenreGetFragment category is " + categoryToGet);
+                Log.d("asd", "ViewModel category is " + viewModel.getCategory());
 
-                Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-                Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-                Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-                Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-                Log.d("asd", "genre is " + viewModel.getCurrentGenre());
-                SongListFragment songListFragment = (SongListFragment) getParentFragmentManager().findFragmentByTag("SongList");
-                songListFragment.getNewChart(genreToGet);
-
+                // Access the top fragment
+                SongListFragment songListFragment = (SongListFragment) getParentFragmentManager()
+                        .findFragmentByTag("SongList");
+                songListFragment.getNewChart(categoryToGet);
             }
         });
 

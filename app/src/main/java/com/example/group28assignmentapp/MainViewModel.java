@@ -5,17 +5,28 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
-    private String currentGenre;
-    private ArrayList<Song> songList;
+    private String category;  // Top Tracks or Top Artist
+    private ArrayList<Entry> entryList;
 
     public MainViewModel() {}
 
-    public void setCurrentGenre(String value) {
-        this.currentGenre = value;
+    public void setCategory(String value) {
+        this.category = value;
     }
 
-    public String getCurrentGenre() {
-        return this.currentGenre;
+    public String getCategory() {
+        return this.category;
     }
 
+    public ArrayList<Entry> getEntryList() {
+        return this.entryList;
+    }
+
+    public void setEntryList(ArrayList<Entry> entryList) {
+        this.entryList = entryList;
+    }
+
+    public void setSong(Entry song) {
+        this.entryList.add(song);
+    }
 }
