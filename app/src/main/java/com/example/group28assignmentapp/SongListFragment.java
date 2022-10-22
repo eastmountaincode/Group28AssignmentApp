@@ -181,6 +181,7 @@ public class SongListFragment extends Fragment {
                     e.setRank(rank);
                     listOfTopSongs.add(e);
                 }
+                // test
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
