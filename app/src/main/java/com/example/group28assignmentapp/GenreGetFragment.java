@@ -2,6 +2,7 @@ package com.example.group28assignmentapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,7 +20,7 @@ public class GenreGetFragment extends Fragment {
     private Spinner spinner;
     private FragmentGenreGetBinding binding;
     private Button getButton;
-    private String genreToGet;
+    private String categoryToGet;  // Top Tracks or Top Artists
     private MainViewModel viewModel;
 
 
@@ -34,12 +35,10 @@ public class GenreGetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentGenreGetBinding.inflate(inflater, container, false);
@@ -48,25 +47,18 @@ public class GenreGetFragment extends Fragment {
 
         spinner = binding.genreSpinner;
         getButton = binding.getButton;
-        getButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                genreToGet = spinner.getSelectedItem().toString();
-                viewModel.setCategory(genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
-                Log.d("asd", "genre is " + genreToGet);
+        getButton.setOnClickListener(v -> {
+            categoryToGet = spinner.getSelectedItem().toString();
+            viewModel.setCategory(categoryToGet);
+            Log.d("asd", "GenreGetFragment category is " + categoryToGet);
+            Log.d("asd", "ViewModel category is " + viewModel.getCategory());
 
-                Log.d("asd", "genre is " + viewModel.getCategory());
-                Log.d("asd", "genre is " + viewModel.getCategory());
-                Log.d("asd", "genre is " + viewModel.getCategory());
-                Log.d("asd", "genre is " + viewModel.getCategory());
+            // Access the top fragment
+            SongListFragment songListFragment = (SongListFragment) getParentFragmentManager()
+                    .findFragmentByTag("SongList");
 
-                SongListFragment songListFragment = (SongListFragment) getParentFragmentManager().findFragmentByTag("SongList");
-                songListFragment.getNewChart(genreToGet);
-
+            if (songListFragment != null && viewModel != null) {
+                songListFragment.getNewChart(viewModel.getCategory());
             }
         });
 
