@@ -45,7 +45,7 @@ public class WebServiceActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout2, SongListFragment.newInstance(), "SongList")
+                    .replace(R.id.topPart, SongListFragment.newInstance(), "SongList")
                     .commitNow();
         }
 
