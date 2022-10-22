@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class SongListFragment extends Fragment {
     private String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
     private JsonObject root;
     private String category;
+    ArrayList<Entry> listOfTopSongs = new ArrayList<>();
 
 
     public SongListFragment() {
@@ -60,7 +62,9 @@ public class SongListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSongListBinding.inflate(inflater, container, false);
-        dummyText = binding.dummyText;
+//        dummyText = binding.dummyText;
+
+
 
         // Get accessor for ViewModel
         ViewModelProvider viewModelProvider = new ViewModelProvider(this);
@@ -129,16 +133,20 @@ public class SongListFragment extends Fragment {
                             .getAsJsonArray();
                     JsonObject topSong = topSongs.get(0).getAsJsonObject();  // Get #1 track
                     String topSongName = topSong.get("name").getAsString();  // Get name of #1
-                    ArrayList<Entry> listOfTopSongs = new ArrayList<>();
+
                     int count = 0;
                     for (JsonElement elem : topSongs) {
                         count++;
                         String songName = elem.getAsJsonObject().get("name").getAsString();
+
                         String artistName = elem.getAsJsonObject()
                                 .get("artist").getAsJsonObject()
                                 .get("name").getAsString();
                         String rank = String.valueOf(count);
                         Entry e = new Entry(songName, artistName, rank);
+                        e.setArtistName(artistName);
+                        e.setSongTitle(songName);
+                        e.setRank(rank);
                         listOfTopSongs.add(e);
                     }
                     viewModel.setEntryList(listOfTopSongs);

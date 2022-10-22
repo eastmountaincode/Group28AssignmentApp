@@ -3,6 +3,7 @@ package com.example.group28assignmentapp;
 import static android.view.View.Z;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,7 @@ public class WebServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWebServiceBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+
         setContentView(view);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -41,8 +43,9 @@ public class WebServiceActivity extends AppCompatActivity {
                     .commitNow();
         }
         if (savedInstanceState == null) {
+
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.topPart, SongListFragment.newInstance(), "SongList")
+                    .replace(R.id.frameLayout2, SongListFragment.newInstance(), "SongList")
                     .commitNow();
         }
 
