@@ -46,9 +46,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            artist.findViewById(R.id.textViewArtist);
-            name.findViewById(R.id.textViewName);
-            rank.findViewById(R.id.textViewRank);
+            artist = itemView.findViewById(R.id.textViewArtist);
+            name = itemView.findViewById(R.id.textViewName);
+            rank = itemView.findViewById(R.id.textViewRank);
 
         }
     }
