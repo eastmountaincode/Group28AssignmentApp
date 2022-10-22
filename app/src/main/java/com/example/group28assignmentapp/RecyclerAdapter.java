@@ -30,8 +30,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.MyViewHolder holder, int position) {
-        holder.artist.setText(listOfTopSongs.get(position).getArtistName());
-        holder.name.setText(listOfTopSongs.get(position).getSongTitle());
+        holder.artist.setText(listOfTopSongs.get(position).getSubtitle());
+        holder.name.setText(listOfTopSongs.get(position).getTitle());
         holder.rank.setText(listOfTopSongs.get(position).getRank());
     }
 

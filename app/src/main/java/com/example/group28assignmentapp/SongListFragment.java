@@ -147,8 +147,8 @@ public class SongListFragment extends Fragment {
 
                     String rank = String.valueOf(count);
                     Entry e = new Entry("", artistName, rank);
-                    e.setArtistName("");
-                    e.setSongTitle(artistName);
+                    e.setSubtitle("");
+                    e.setTitle(artistName);
                     e.setRank(rank);
                     listOfTopSongs.add(e);
                 }
@@ -176,8 +176,8 @@ public class SongListFragment extends Fragment {
                             .get("name").getAsString();
                     String rank = String.valueOf(count);
                     Entry e = new Entry(songName, artistName, rank);
-                    e.setArtistName(artistName);
-                    e.setSongTitle(songName);
+                    e.setSubtitle(artistName);
+                    e.setTitle(songName);
                     e.setRank(rank);
                     listOfTopSongs.add(e);
                 }
