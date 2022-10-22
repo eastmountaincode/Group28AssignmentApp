@@ -107,10 +107,10 @@ public class SongListFragment extends Fragment {
 
             try {
                 if (category.equals(Category.TOP_SONGS)) {
-                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=c0355388e06690d06f415808862dc1fe&format=json");
+                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=c0355388e06690d06f415808862dc1fe&format=json&limit=5");
                 }
                 if (category.equals(Category.TOP_ARTISTS)) {
-                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=c0355388e06690d06f415808862dc1fe&format=json");
+                    url = new URL("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=c0355388e06690d06f415808862dc1fe&format=json&limit=5");
                 }
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
