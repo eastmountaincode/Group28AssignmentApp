@@ -127,6 +127,7 @@ public class SongListFragment extends Fragment {
                 public void run() {
 
                     dummyText.setText(root.toString());
+                    Log.d("asdf", root.toString());
                 }
             });
 
