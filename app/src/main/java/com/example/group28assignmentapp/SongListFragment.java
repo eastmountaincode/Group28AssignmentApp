@@ -2,15 +2,16 @@ package com.example.group28assignmentapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.group28assignmentapp.databinding.FragmentSongListBinding;
 import com.google.gson.JsonArray;
@@ -23,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -33,14 +33,15 @@ public class SongListFragment extends Fragment {
 
     private MainViewModel viewModel;
     private FragmentSongListBinding binding;
-    private TextView dummyText;
     private Handler handler;
     private URL url;
     String result = "";
-    private String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
+    private final String lastFMAPIKey = "c0355388e06690d06f415808862dc1fe";
     private JsonObject root;
     private String category;
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private RecyclerAdapter adapter;
 
 
     public SongListFragment() {
@@ -58,17 +59,20 @@ public class SongListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSongListBinding.inflate(inflater, container, false);
-//        dummyText = binding.dummyText;
+        recyclerView = binding.songListView;
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
 
         // Get accessor for ViewModel
         ViewModelProvider viewModelProvider = new ViewModelProvider(this);
         viewModel = viewModelProvider.get(MainViewModel.class);  // Get accessor to viewModel
+        adapter = new RecyclerAdapter(this.getContext(), viewModel.getEntryList());
+        recyclerView.setAdapter(adapter);
 
         return binding.getRoot();
     }
@@ -117,41 +121,35 @@ public class SongListFragment extends Fragment {
                 JsonElement jsonElement = JsonParser.parseString(result);
                 root = jsonElement.getAsJsonObject();
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    JsonArray topSongs = root.get("tracks")
-                            .getAsJsonObject()
-                            .get("track")
-                            .getAsJsonArray();
-                    JsonObject topSong = topSongs.get(0).getAsJsonObject();  // Get #1 track
-                    String topSongName = topSong.get("name").getAsString();  // Get name of #1
+            handler.post(() -> {
+                JsonArray topSongs = root.get("tracks")
+                        .getAsJsonObject()
+                        .get("track")
+                        .getAsJsonArray();
 
-                    int count = 0;
-                    for (JsonElement elem : topSongs) {
-                        count++;
-                        String songName = elem.getAsJsonObject().get("name").getAsString();
+                int count = 0;
+                for (JsonElement elem : topSongs) {
+                    count++;
+                    String songName = elem.getAsJsonObject().get("name").getAsString();
 
-                        String artistName = elem.getAsJsonObject()
-                                .get("artist").getAsJsonObject()
-                                .get("name").getAsString();
-                        String rank = String.valueOf(count);
-                        Entry e = new Entry(songName, artistName, rank);
-                        e.setArtistName(artistName);
-                        e.setSongTitle(songName);
-                        e.setRank(rank);
-                        listOfTopSongs.add(e);
-                    }
-                    viewModel.setEntryList(listOfTopSongs);
-                    dummyText.setText(viewModel.getEntryList().get(0).toString());
+                    String artistName = elem.getAsJsonObject()
+                            .get("artist").getAsJsonObject()
+                            .get("name").getAsString();
+                    String rank = String.valueOf(count);
+                    Entry e = new Entry(songName, artistName, rank);
+                    e.setArtistName(artistName);
+                    e.setSongTitle(songName);
+                    e.setRank(rank);
+                    listOfTopSongs.add(e);
                 }
+                viewModel.setEntryList(listOfTopSongs);
+                recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
+                        viewModel.getEntryList()));
             });
 
         }

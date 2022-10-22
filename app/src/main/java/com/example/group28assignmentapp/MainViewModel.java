@@ -8,7 +8,12 @@ public class MainViewModel extends ViewModel {
     private String category;  // Top Tracks or Top Artist
     private ArrayList<Entry> entryList;
 
-    public MainViewModel() {}
+    public MainViewModel() {
+        this.category = "ABC";
+        this.entryList = new ArrayList<>();
+        Entry e = new Entry("No Entries Loaded", "Press GET", "");
+        this.entryList.add(e);
+    }
 
     public void setCategory(String value) {
         this.category = value;
@@ -26,7 +31,4 @@ public class MainViewModel extends ViewModel {
         this.entryList = entryList;
     }
 
-    public void setSong(Entry song) {
-        this.entryList.add(song);
-    }
 }
