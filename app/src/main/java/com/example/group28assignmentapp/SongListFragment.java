@@ -1,5 +1,6 @@
 package com.example.group28assignmentapp;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,12 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.airbnb.lottie.LottieDrawable;
 import com.example.group28assignmentapp.databinding.FragmentSongListBinding;
+import com.example.group28assignmentapp.databinding.ProgressDialogBinding;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -45,6 +49,8 @@ public class SongListFragment extends Fragment {
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
+    private Dialog loadingDialog;
+
 
 
 
@@ -55,6 +61,7 @@ public class SongListFragment extends Fragment {
     public static SongListFragment newInstance() {
         return new SongListFragment();
     }
+
 
 
     @Override
@@ -70,6 +77,9 @@ public class SongListFragment extends Fragment {
         recyclerView = binding.songListView;
 
 
+        loadingDialog = CommonUtils.showLoadingDialog(this.getContext());
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
 
@@ -83,10 +93,12 @@ public class SongListFragment extends Fragment {
     }
 
     public void getNewChart(Category category) {
+
         this.category = category;
         handler = new Handler();
         MyThread thread = new MyThread();
         thread.start();
+
     }
 
     public static String convertStreamToString(InputStream inputStream) {
@@ -109,6 +121,9 @@ public class SongListFragment extends Fragment {
     private class MyThread extends Thread {
         @Override
         public void run() {
+            // This is where the progress dialog should start
+            Looper.prepare();
+            loadingDialog.show();
 
             try {
                 if (category.equals(Category.TOP_SONGS)) {
@@ -191,6 +206,9 @@ public class SongListFragment extends Fragment {
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
+
+                // This is where the progress dialog should end
+
             });
 
         }
