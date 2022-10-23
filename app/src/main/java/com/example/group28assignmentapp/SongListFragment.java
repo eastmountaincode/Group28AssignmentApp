@@ -33,6 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -49,8 +50,7 @@ public class SongListFragment extends Fragment {
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
-    private Dialog loadingDialog;
-
+    private LoadingDialog loadingDialog;
 
 
 
@@ -76,8 +76,6 @@ public class SongListFragment extends Fragment {
         binding = FragmentSongListBinding.inflate(inflater, container, false);
         recyclerView = binding.songListView;
 
-
-        loadingDialog = CommonUtils.showLoadingDialog(this.getContext());
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -122,8 +120,6 @@ public class SongListFragment extends Fragment {
         @Override
         public void run() {
             // This is where the progress dialog should start
-            Looper.prepare();
-            loadingDialog.show();
 
             try {
                 if (category.equals(Category.TOP_SONGS)) {
@@ -154,6 +150,9 @@ public class SongListFragment extends Fragment {
 
         private void handleTopArtists(JsonObject root) {
             handler.post(() -> {
+                loadingDialog = new LoadingDialog(getActivity());
+                loadingDialog.startLoadingDialog();
+
                 JsonArray topArtists = root.get("artists")
                         .getAsJsonObject()
                         .get("artist")
@@ -175,12 +174,17 @@ public class SongListFragment extends Fragment {
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
+
+                loadingDialog.dismissDialog();
             });
         }
 
 
         private void handleTopTracks(JsonObject root) {
             handler.post(() -> {
+                loadingDialog = new LoadingDialog(getActivity());
+                loadingDialog.startLoadingDialog();
+
                 JsonArray topSongs = root.get("tracks")
                         .getAsJsonObject()
                         .get("track")
@@ -207,7 +211,9 @@ public class SongListFragment extends Fragment {
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
 
-                // This is where the progress dialog should end
+
+
+                loadingDialog.dismissDialog();
 
             });
 
