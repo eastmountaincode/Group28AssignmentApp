@@ -12,9 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.example.group28assignmentapp.databinding.FragmentGenreGetBinding;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GenreGetFragment extends Fragment {
     private Spinner spinner;
@@ -22,6 +26,7 @@ public class GenreGetFragment extends Fragment {
     private Button getButton;
     private String categoryToGet;  // Top Tracks or Top Artists
     private MainViewModel viewModel;
+
 
 
 
@@ -44,6 +49,8 @@ public class GenreGetFragment extends Fragment {
         binding = FragmentGenreGetBinding.inflate(inflater, container, false);
         ViewModelProvider viewModelProvider = new ViewModelProvider(this);
         viewModel = viewModelProvider.get(MainViewModel.class);
+
+
 
         spinner = binding.genreSpinner;
         getButton = binding.getButton;

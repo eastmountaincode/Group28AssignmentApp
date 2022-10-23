@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.group28assignmentapp.databinding.FragmentSongListBinding;
 import com.google.gson.JsonArray;
@@ -26,6 +27,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -42,6 +45,8 @@ public class SongListFragment extends Fragment {
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
+    private ProgressBar progressBarLoading;
+    private int counter = 0;
 
 
     public SongListFragment() {
@@ -64,6 +69,20 @@ public class SongListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSongListBinding.inflate(inflater, container, false);
         recyclerView = binding.songListView;
+        // creating a loading bar
+//        progressBarLoading = binding.progressBar;
+        progressBarLoading.setVisibility(View.VISIBLE);
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                counter++;
+                progressBarLoading.setProgress(counter);
+                if (counter == 5){
+                    timer.cancel();
+                }
+            }
+        };
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
