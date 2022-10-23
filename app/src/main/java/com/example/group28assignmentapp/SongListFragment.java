@@ -45,8 +45,7 @@ public class SongListFragment extends Fragment {
     ArrayList<Entry> listOfTopSongs = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
-    private ProgressBar progressBarLoading;
-    private int counter = 0;
+
 
 
     public SongListFragment() {
@@ -69,20 +68,7 @@ public class SongListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSongListBinding.inflate(inflater, container, false);
         recyclerView = binding.songListView;
-        // creating a loading bar
-//        progressBarLoading = binding.progressBar;
-        progressBarLoading.setVisibility(View.VISIBLE);
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                counter++;
-                progressBarLoading.setProgress(counter);
-                if (counter == 5){
-                    timer.cancel();
-                }
-            }
-        };
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 

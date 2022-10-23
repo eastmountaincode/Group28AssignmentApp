@@ -30,6 +30,7 @@ public class GenreGetFragment extends Fragment {
 
 
 
+
     public GenreGetFragment() {
         // Required empty public constructor
     }
