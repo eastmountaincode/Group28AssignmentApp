@@ -6,9 +6,11 @@ import com.example.group28assignmentapp.databinding.ActivityMainBinding;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+
 
         binding.atYourServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,4 +29,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -42,5 +43,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation "com.airbnb.android:lottie:3.3.0"
+
+    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
 
 }

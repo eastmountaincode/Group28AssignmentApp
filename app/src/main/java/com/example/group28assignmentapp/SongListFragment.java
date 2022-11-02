@@ -119,6 +119,7 @@ public class SongListFragment extends Fragment {
     private class MyThread extends Thread {
         @Override
         public void run() {
+            // This is where the progress dialog should start
 
             try {
                 if (category.equals(Category.TOP_SONGS)) {
@@ -149,7 +150,6 @@ public class SongListFragment extends Fragment {
 
         private void handleTopArtists(JsonObject root) {
             handler.post(() -> {
-                // This is where the progress dialog should start
                 loadingDialog = new LoadingDialog(getActivity());
                 loadingDialog.startLoadingDialog();
 
@@ -182,7 +182,6 @@ public class SongListFragment extends Fragment {
 
         private void handleTopTracks(JsonObject root) {
             handler.post(() -> {
-                // This is where the progress dialog should start
                 loadingDialog = new LoadingDialog(getActivity());
                 loadingDialog.startLoadingDialog();
 
@@ -211,6 +210,8 @@ public class SongListFragment extends Fragment {
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
+
+
 
                 loadingDialog.dismissDialog();
 
