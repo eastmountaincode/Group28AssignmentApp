@@ -43,6 +43,6 @@ public class LoadingDialog {
     }
 
     public void dismissDialog() {
-        timer.schedule(timerTask, 1000, 1);
+        timer.schedule(timerTask, 100, 100);
     }
 }
