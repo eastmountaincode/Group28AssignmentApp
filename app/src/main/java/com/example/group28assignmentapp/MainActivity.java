@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.group28assignmentapp.database.DatabaseMainActivity;
 import com.example.group28assignmentapp.databinding.ActivityMainBinding;
 import com.example.group28assignmentapp.web_service.WebServiceActivity;
 
@@ -24,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, WebServiceActivity.class));
+            }
+        });
+        binding.firebaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DatabaseMainActivity.class));
             }
         });
 
