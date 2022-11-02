@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Group28AssignmentApp"
         tools:targetApi="31">
         <activity
-            android:name=".WebServiceActivity"
+            android:name=".web_service.WebServiceActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity">
             <meta-data

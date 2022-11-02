@@ -1,4 +1,4 @@
-package com.example.group28assignmentapp;
+package com.example.group28assignmentapp.database;
 
 public class User {
     public String username;

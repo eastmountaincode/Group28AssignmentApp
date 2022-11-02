@@ -1,8 +1,10 @@
-package com.example.group28assignmentapp;
+package com.example.group28assignmentapp.web_service;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+
+import com.example.group28assignmentapp.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
