@@ -117,6 +117,8 @@ public class DatabaseLoginFragment extends Fragment {
                                 // TODO: Check username against list of Users in the DatabaseViewModel
                                 // If the username matches what we have in the ViewModel, then set the
                                 // current user in the ViewModel and move to the next page.
+                                databaseViewModel.setCurrentUser(username);
+                                databaseViewModel.loadUsernames();
 
 
 
