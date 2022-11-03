@@ -3,6 +3,9 @@
     <string name="at_your_service_str">At Your Service</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_str">Get</string>
+    <string name="welcome_to_the_app">Welcome To The App</string>
+    <string name="new_user">New User</string>
+    <string name="enter_username">Enter Username</string>
 
 
     <string-array name="charts">
