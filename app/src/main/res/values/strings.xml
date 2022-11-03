@@ -6,6 +6,8 @@
     <string name="welcome_to_the_app">Welcome To The App</string>
     <string name="new_user">New User</string>
     <string name="enter_username">Enter Username</string>
+    <string name="username_prompt">username</string>
+    <string name="password_prompt">password</string>
 
 
     <string-array name="charts">

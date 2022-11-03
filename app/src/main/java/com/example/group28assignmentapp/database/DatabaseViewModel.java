@@ -2,6 +2,7 @@ package com.example.group28assignmentapp.database;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,12 +12,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DatabaseViewModel extends ViewModel {
     private ArrayList<String> listOfUsernames;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
     private final String TAG = "REALTIME-DATABASE";
+    List<String> usernames;
 
     public void loadUsernames() {
         //TODO: load the usernames from the database into listOfUsernames so we can
@@ -31,11 +35,13 @@ public class DatabaseViewModel extends ViewModel {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                Log.d(TAG, "Value is: " + map.get("users"));
+                Log.d(TAG, "UserMap value is: " + map);
+                usernames = new ArrayList<>(Objects.requireNonNull(map).keySet());
+                Log.d(TAG, "Usernames are: " + usernames);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
