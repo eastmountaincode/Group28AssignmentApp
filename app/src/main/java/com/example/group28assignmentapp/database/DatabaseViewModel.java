@@ -21,9 +21,10 @@ public class DatabaseViewModel extends ViewModel {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
     private final String TAG = "REALTIME-DATABASE";
     List<String> usernames;
+    private String currentUser;
 
     public void loadUsernames() {
-        //TODO: load the usernames from the database into listOfUsernames so we can
+        // TODO: load the usernames from the database into listOfUsernames so we can
         // check if the one the user enters exists, or if the user wants to create a NEW user,
         // we must check that that username doesn't already exist
 
@@ -47,6 +48,14 @@ public class DatabaseViewModel extends ViewModel {
             }
         });
     }
+
+   public String getCurrentUser() {
+        return this.currentUser;
+   }
+
+   public void setCurrentUser(String currentUser1) {
+        this.currentUser = currentUser1;
+   }
 
 
 }

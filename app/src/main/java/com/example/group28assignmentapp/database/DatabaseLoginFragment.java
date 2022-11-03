@@ -8,9 +8,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
@@ -47,6 +49,7 @@ public class DatabaseLoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
         setCreateAccountClickListener();
+        setEnterUsernameClickListener();
         return binding.getRoot();
     }
 
@@ -57,8 +60,80 @@ public class DatabaseLoginFragment extends Fragment {
         binding.newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment loginFragment = new LoginDialogFragment();
-                loginFragment.show(getParentFragmentManager(), "LOGIN");
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setMessage("New user.\nEnter your proposed username.");
+                // Set up the input
+                final EditText inputUsername = new EditText(getContext());
+                // Specify the type of input expected
+                inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder1.setView(inputUsername);
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Login",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String username = inputUsername.getText().toString();
+                                // TODO: Check username against list of Users in the DatabaseViewModel
+                                // If there are no duplicates then create a new User
+
+
+
+                                dialog.cancel();
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        });
+    }
+    private void setEnterUsernameClickListener() {
+        binding.enterUsernameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setMessage("Returning user.\nEnter your username.");
+                // Set up the input
+                final EditText inputUsername = new EditText(getContext());
+                // Specify the type of input expected
+                inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder1.setView(inputUsername);
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Login",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String username = inputUsername.getText().toString();
+                                // TODO: Check username against list of Users in the DatabaseViewModel
+                                // If the username matches what we have in the ViewModel, then set the
+                                // current user in the ViewModel and move to the next page.
+
+
+
+                                dialog.cancel();
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
             }
         });
     }
