@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.group28assignmentapp.database.DatabaseMainActivity;
-import com.example.group28assignmentapp.database.LoginActivity;
 import com.example.group28assignmentapp.databinding.ActivityMainBinding;
 import com.example.group28assignmentapp.web_service.WebServiceActivity;
 

@@ -19,10 +19,6 @@
             android:exported="false">
         </activity>
 
-        <activity android:name=".database.LoginActivity"
-            android:exported="false">
-        </activity>
-
         <activity
             android:name=".web_service.WebServiceActivity"
             android:exported="false"
