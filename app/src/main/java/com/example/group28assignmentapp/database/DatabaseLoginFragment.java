@@ -35,15 +35,13 @@ public class DatabaseLoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-
+        databaseViewModel.loadUsernames();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
-
-
         return binding.getRoot();
     }
 }
