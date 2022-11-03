@@ -3,15 +3,20 @@ package com.example.group28assignmentapp.database;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.group28assignmentapp.R;
+import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
 
 
 public class DatabaseLoginFragment extends Fragment {
+
+    private DatabaseViewModel databaseViewModel;
+    private FragmentDatabaseLoginBinding binding;
 
 
 
@@ -29,13 +34,16 @@ public class DatabaseLoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_database_login, container, false);
+        binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
+
+
+        return binding.getRoot();
     }
 }
