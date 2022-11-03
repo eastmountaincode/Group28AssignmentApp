@@ -1,4 +1,4 @@
-package com.example.group28assignmentapp;
+package com.example.group28assignmentapp.web_service;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.group28assignmentapp.R;
 
 import java.util.List;
 
