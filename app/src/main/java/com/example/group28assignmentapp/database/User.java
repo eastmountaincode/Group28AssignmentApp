@@ -5,8 +5,27 @@ import java.util.List;
 public class User {
     private String username;
     private String message;
-    private List<Sticker> received;
-    private List<Sticker> sent;
+    private String received;
+    private String sent;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setReceived(String received) {
+        this.received = received;
+    }
+
+    public void setSent(String sent) {
+        this.sent = sent;
+    }
+
+//    private List<Sticker> received;
+//    private List<Sticker> sent;
 
 
     public User(){
@@ -29,13 +48,13 @@ public class User {
         return message;
     }
 
-    public List<Sticker> getReceived() {
-        return received;
-    }
-
-    public List<Sticker> getSent() {
-        return sent;
-    }
+//    public List<Sticker> getReceived() {
+//        return received;
+//    }
+//
+//    public List<Sticker> getSent() {
+//        return sent;
+//    }
 
     @Override
     public String toString() {

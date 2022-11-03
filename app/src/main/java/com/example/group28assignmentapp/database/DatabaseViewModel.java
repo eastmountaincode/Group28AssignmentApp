@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -22,6 +23,11 @@ public class DatabaseViewModel extends ViewModel {
     private final String TAG = "REALTIME-DATABASE";
     List<String> usernames;
     private String currentUser;
+    Map<User, Received> userReceived = new HashMap<>();
+    Map<User, Sent> userSent = new HashMap<>();
+
+
+
 
     public void loadUsernames() {
         // TODO: load the usernames from the database into listOfUsernames so we can
@@ -33,6 +39,49 @@ public class DatabaseViewModel extends ViewModel {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // loop all the data
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = new User();
+                    Sent sent = new Sent();
+                    Received received = new Received();
+                    user.setUsername(snapshot.getKey());
+                    // loop data encapsulated in "received"
+                    for (DataSnapshot ds : snapshot.child("received").getChildren()){
+                        received.setSender(ds.getValue(Received.class).getSender());
+                        received.setStickerId(ds.getValue(Received.class).getStickerId());
+
+                        //  mapping User class and  Received class
+                        // using getter methods to get relevant data
+                        userReceived.put(user, received);
+                    }
+
+                    // loop data encapsulated in "sent"
+                    for (DataSnapshot ds : snapshot.child("sent").getChildren()){
+                        sent.setRecipient((ds.getValue(Sent.class).getRecipient()));
+                        sent.setStickerId((ds.getValue(Sent.class).getStickerId()));
+                        //  mapping User class and Sent class
+                        // using getter methods to get relevant data
+                        userSent.put(user, sent);
+                    }
+
+
+
+
+
+
+                }
+                // the code is to check if the data is store successfully into maps line 66 - 70
+                // - Yikan
+                for (Map.Entry<User, Received> entry : userReceived.entrySet()){
+                    String testUserName = entry.getKey().getUsername();
+                    String testSenderName = entry.getValue().getSender();
+                    int testStickerId = entry.getValue().getStickerId();
+                    String debug = "xxxx";
+                }
+
+
+
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
