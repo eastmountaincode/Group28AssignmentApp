@@ -1,7 +1,10 @@
 package com.example.group28assignmentapp.database;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
+import com.example.group28assignmentapp.databinding.LoginDialogBinding;
 
 
 public class DatabaseLoginFragment extends Fragment {
@@ -42,6 +46,20 @@ public class DatabaseLoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
+        setCreateAccountClickListener();
         return binding.getRoot();
+    }
+
+    /***********************************************************************************************
+     * PRIVATE METHODS
+     **********************************************************************************************/
+    private void setCreateAccountClickListener() {
+        binding.newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment loginFragment = new LoginDialogFragment();
+                loginFragment.show(getParentFragmentManager(), "LOGIN");
+            }
+        });
     }
 }
