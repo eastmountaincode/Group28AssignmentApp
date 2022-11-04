@@ -69,7 +69,6 @@ public class DatabaseLoginFragment extends Fragment {
                     "Login",
                     (dialog, id) -> {
                         String username = inputUsername.getText().toString();
-                        // TODO: Check username against list of Users in the DatabaseViewModel
                         if (!databaseViewModel.userExists(username)) {
                             // Create a new user if no duplicates
                             databaseViewModel.createUser(username);
@@ -108,6 +107,7 @@ public class DatabaseLoginFragment extends Fragment {
                         // current user in the ViewModel and move to the next page.
                         if (databaseViewModel.userExists(username)) {
                             // TODO: Set current user in ViewModel!
+                            databaseViewModel.setCurrentUser(username);
                             // TODO: Go to next screen
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();

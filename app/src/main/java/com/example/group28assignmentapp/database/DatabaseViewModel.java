@@ -60,7 +60,7 @@ public class DatabaseViewModel extends ViewModel {
      * @return true if username already exists in database. false otherwise.
      */
     public boolean userExists(String username) {
-        return listOfUsernames.stream().anyMatch(username::equalsIgnoreCase);
+        return listOfUsernames.contains(username);
     }
 
     /**
@@ -71,6 +71,11 @@ public class DatabaseViewModel extends ViewModel {
         User newUser = new User(username);
         mDatabase.child(username).setValue(newUser);
         this.currentUser = newUser;
+    }
+
+    public void setCurrentUser(String username) {
+        this.currentUser = this.users.get(username);
+
     }
 
 
