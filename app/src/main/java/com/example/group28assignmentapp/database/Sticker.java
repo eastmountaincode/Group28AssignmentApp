@@ -2,11 +2,11 @@ package com.example.group28assignmentapp.database;
 
 public class Sticker {
     private String associatedUser;
-    private int stickerNumber;
+    private int sticker_number;
 
     public Sticker(String sender, int stickerID) {
         this.associatedUser = sender;
-        this.stickerNumber = stickerID;
+        this.sticker_number = stickerID;
     }
 
     public void setAssociatedUser(String associatedUser) {
@@ -14,7 +14,7 @@ public class Sticker {
     }
 
     public void setStickerId(int stickerId) {
-        this.stickerNumber = stickerId;
+        this.sticker_number = stickerId;
     }
 
     public String getAssociatedUser() {
@@ -22,6 +22,6 @@ public class Sticker {
     }
 
     public int getStickerId() {
-        return stickerNumber;
+        return sticker_number;
     }
 }
