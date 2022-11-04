@@ -5,6 +5,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
+import com.example.group28assignmentapp.database.data_util_classes.ReceivedMessage;
+import com.example.group28assignmentapp.database.data_util_classes.SentMessage;
+import com.example.group28assignmentapp.database.data_util_classes.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +23,11 @@ public class DatabaseViewModel extends ViewModel {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
     private final String TAG = "REALTIME-DATABASE";
     private String currentUser;
+
+    public ArrayList<User> getListOfUsers() {
+        return listOfUsers;
+    }
+
     private ArrayList<User> listOfUsers;
 
     public void loadUsers() {
@@ -91,6 +99,8 @@ public class DatabaseViewModel extends ViewModel {
    public void setCurrentUser(String currentUser1) {
         this.currentUser = currentUser1;
    }
+
+
 
 
 }

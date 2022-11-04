@@ -10,4 +10,9 @@
         android:name="com.example.group28assignmentapp.database.DatabaseLoginFragment"
         android:label="fragment_database_login"
         tools:layout="@layout/fragment_database_login" />
+    <activity
+        android:id="@+id/databaseMessageViewActivity"
+        android:name="com.example.group28assignmentapp.database.DatabaseMessageViewActivity"
+        android:label="activity_database_message_view"
+        tools:layout="@layout/activity_database_message_view" />
 </navigation>

@@ -111,10 +111,10 @@ public class DatabaseLoginFragment extends Fragment {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String username = inputUsername.getText().toString();
-                                // TODO: Check username against list of Users in the DatabaseViewModel
-                                // If the username matches what we have in the ViewModel, then set the
-                                // current user in the ViewModel and move to the next page.
 
+                                if (databaseViewModel.getListOfUsers().contains(username)) {
+                                    databaseViewModel.setCurrentUser(username);
+                                }
 
                                 dialog.cancel();
                             }

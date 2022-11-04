@@ -1,4 +1,4 @@
-package com.example.group28assignmentapp.database;
+package com.example.group28assignmentapp.database.data_util_classes;
 
 import java.util.ArrayList;
 
