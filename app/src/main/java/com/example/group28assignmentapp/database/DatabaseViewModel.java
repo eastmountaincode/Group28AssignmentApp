@@ -14,13 +14,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class DatabaseViewModel extends ViewModel {
-    private Set<String> listOfUsernames = new HashSet<>();
-    private Map<String, User> users = new HashMap<>();
+    private final Set<String> listOfUsernames = new HashSet<>();
+    private final Map<String, User> users = new HashMap<>();
     private User currentUser;
 
+    // TODO: Abstract the Path outta this to some config file or enum or something
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
     private final String TAG = "REALTIME-DATABASE";
 
@@ -39,7 +41,7 @@ public class DatabaseViewModel extends ViewModel {
                 // loop all the data
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    users.put(user.getUsername(), user);  //
+                    users.put(Objects.requireNonNull(user).getUsername(), user);  //
                     listOfUsernames.add(user.getUsername());  // For speedy lookup
                 }
             }
@@ -50,6 +52,16 @@ public class DatabaseViewModel extends ViewModel {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+    }
+
+    public boolean userExists(String username) {
+        return listOfUsernames.contains(username);
+    }
+
+    public void createUser(String username) {
+        // TODO: Implement this method!
+        User newUser = new User(username);
+        mDatabase.child(username).setValue(newUser);
     }
 
 //   public String getCurrentUser() {
