@@ -5,8 +5,8 @@ import java.util.List;
 
 public class User {
     private String username;
-    private List<Sticker> sentStickers;
-    private List<Sticker> receivedStickers;
+    private List<Sticker> sent;
+    private List<Sticker> received;
 
     public User() {
         // Default constructor necessary for calls to DataSnapshot.getValue(User.class)
@@ -16,8 +16,8 @@ public class User {
                 List<Sticker> sentStickers,
                 List<Sticker> receivedStickers) {
         this.username = username;
-        this.receivedStickers = receivedStickers;
-        this.sentStickers = sentStickers;
+        this.received = receivedStickers;
+        this.sent = sentStickers;
     }
 
     public String getUsername() {
@@ -28,19 +28,19 @@ public class User {
         this.username = username;
     }
 
-    public List<Sticker> getSentStickers() {
-        return sentStickers;
+    public List<Sticker> getSent() {
+        return sent;
     }
 
-    public void setSentStickers(List<Sticker> sentStickers) {
-        this.sentStickers = sentStickers;
+    public void setSent(List<Sticker> sent) {
+        this.sent = sent;
     }
 
-    public List<Sticker> getReceivedStickers() {
-        return receivedStickers;
+    public List<Sticker> getReceived() {
+        return received;
     }
 
-    public void setReceivedStickers(List<Sticker> receivedStickers) {
-        this.receivedStickers = receivedStickers;
+    public void setReceived(List<Sticker> received) {
+        this.received = received;
     }
 }
