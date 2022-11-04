@@ -54,23 +54,24 @@ public class DatabaseViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Checks if user already exists in database. Case insensitive!
+     * @param username the username to check
+     * @return true if username already exists in database. false otherwise.
+     */
     public boolean userExists(String username) {
-        return listOfUsernames.contains(username);
+        return listOfUsernames.stream().anyMatch(username::equalsIgnoreCase);
     }
 
+    /**
+     * Creates a new user and adds it to the realtime database.
+     * @param username the name of the new user.
+     */
     public void createUser(String username) {
-        // TODO: Implement this method!
         User newUser = new User(username);
         mDatabase.child(username).setValue(newUser);
+        this.currentUser = newUser;
     }
-
-//   public String getCurrentUser() {
-//        return this.currentUser;
-//   }
-//
-//   public void setCurrentUser(String currentUser1) {
-//        this.currentUser = currentUser1;
-//   }
 
 
 }
