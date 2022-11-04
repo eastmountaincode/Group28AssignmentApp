@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.ActivityWebServiceBinding;
-import com.example.group28assignmentapp.web_service.GenreGetFragment;
-import com.example.group28assignmentapp.web_service.SongListFragment;
 
 import java.net.URL;
 

@@ -12,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,13 +20,9 @@ public class DatabaseViewModel extends ViewModel {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
     private final String TAG = "REALTIME-DATABASE";
     private String currentUser;
-//    Map<User, ReceivedMessage> userReceived = new HashMap<>();
-//    Map<User, SentMessage> userSent = new HashMap<>();
+    private ArrayList<User> listOfUsers;
 
-
-
-
-    public void loadUsernames() {
+    public void loadUsers() {
         // TODO: load the usernames from the database into listOfUsernames so we can
         // check if the one the user enters exists, or if the user wants to create a NEW user,
         // we must check that that username doesn't already exist
@@ -38,52 +33,43 @@ public class DatabaseViewModel extends ViewModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                // loop all the data
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    User user = new User();
-//                    SentMessage sent = new SentMessage();
-//                    ReceivedMessage received = new ReceivedMessage();
-//                    user.setUsername(snapshot.getKey());
-//                    // loop data encapsulated in "received"
-//                    for (DataSnapshot ds : snapshot.child("received").getChildren()){
-//                        received.setSender(ds.getValue(ReceivedMessage.class).getSender());
-//                        received.setStickerId(ds.getValue(ReceivedMessage.class).getStickerId());
-//
-//                        //  mapping User class and  ReceivedMessage class
-//                        // using getter methods to get relevant data
-//                        userReceived.put(user, received);
-//                    }
-//
-//                    // loop data encapsulated in "sent"
-//                    for (DataSnapshot ds : snapshot.child("sent").getChildren()){
-//                        sent.setRecipient((ds.getValue(SentMessage.class).getRecipient()));
-//                        sent.setStickerId((ds.getValue(SentMessage.class).getStickerId()));
-//                        //  mapping User class and SentMessage class
-//                        // using getter methods to get relevant data
-//                        userSent.put(user, sent);
-//                    }
-//
-//                }
-//                // the code is to check if the data is store successfully into maps line 66 - 70
-//                // - Yikan
-//                for (Map.Entry<User, ReceivedMessage> entry : userReceived.entrySet()){
-//                    String testUserName = entry.getKey().getUsername();
-//                    String testSenderName = entry.getValue().getSender();
-//                    int testStickerId = entry.getValue().getStickerId();
-//                    String debug = "xxxx";
-//                }
-
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
                 // Put data snapshot into a hashmap
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                Log.d(TAG, "UserMap value is: " + map);
+                Map<String, Map<String, ArrayList<Map<String, Map<String, Integer>>>>> map = (Map<String, Map<String, ArrayList<Map<String, Map<String, Integer>>>>>) dataSnapshot.getValue();
+
                 // Get list of usernames from hashmap
                 listOfUsernames = new ArrayList<>(Objects.requireNonNull(map).keySet());
-                Log.d(TAG, "Usernames are: " + listOfUsernames);
-                // Parse hashmap into User class
 
+                // Parse hashmap into User class
+                listOfUsers = new ArrayList<>();
+                for (Map.Entry<String, Map<String, ArrayList<Map<String, Map<String, Integer>>>>> user: map.entrySet()) {
+
+                    // Get sent and received lists
+                    Map<String, ArrayList<Map<String, Map<String, Integer>>>> lists = user.getValue();
+
+                    // Get items from received list
+                    ArrayList<ReceivedMessage> receivedMessagesList = new ArrayList<>();
+                    for (Map<String, Map<String, Integer>> receivedMessageEvent: lists.get("received")) {
+                        if (receivedMessageEvent == null) {
+                            continue;
+                        }
+                        receivedMessagesList.add(new ReceivedMessage(String.valueOf(receivedMessageEvent.get("sender")), Integer.valueOf(String.valueOf(receivedMessageEvent.get("sticker")))));
+                    }
+
+                    // Get items from sent list
+                    ArrayList<SentMessage> sentMessagesList = new ArrayList<>();
+                    for (Map<String, Map<String, Integer>> sentMessageEvent: lists.get("sent")) {
+                        if (sentMessageEvent == null) {
+                            continue;
+                        }
+                        sentMessagesList.add(new SentMessage(String.valueOf(sentMessageEvent.get("recipient")), Integer.valueOf(String.valueOf(sentMessageEvent.get("sticker")))));
+                    }
+                    listOfUsers.add(new User(user.getKey(), sentMessagesList, receivedMessagesList));
+
+                }
+                Log.d(TAG, listOfUsers.toString());
 
 
             }

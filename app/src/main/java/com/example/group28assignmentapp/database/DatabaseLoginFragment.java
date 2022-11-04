@@ -3,20 +3,17 @@ package com.example.group28assignmentapp.database;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.group28assignmentapp.R;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
-import com.example.group28assignmentapp.databinding.LoginDialogBinding;
+
 
 
 public class DatabaseLoginFragment extends Fragment {
@@ -41,7 +38,7 @@ public class DatabaseLoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        databaseViewModel.loadUsernames();
+        databaseViewModel.loadUsers();
     }
 
     @Override
@@ -117,9 +114,6 @@ public class DatabaseLoginFragment extends Fragment {
                                 // TODO: Check username against list of Users in the DatabaseViewModel
                                 // If the username matches what we have in the ViewModel, then set the
                                 // current user in the ViewModel and move to the next page.
-                                databaseViewModel.setCurrentUser(username);
-                                databaseViewModel.loadUsernames();
-
 
 
                                 dialog.cancel();

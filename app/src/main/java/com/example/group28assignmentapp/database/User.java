@@ -1,19 +1,20 @@
 package com.example.group28assignmentapp.database;
 
-import java.util.Map;
+import java.util.ArrayList;
+
 
 public class User {
     private String username;
-    private Map<Integer, SentMessage> sentMessages;
-    private Map<Integer, ReceivedMessage> receivedMessages;
+    private ArrayList<SentMessage> sentMessages;
+    private ArrayList<ReceivedMessage> receivedMessages;
 
     public User(){
         // Default constructor necessary for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String username,
-                Map<Integer, SentMessage> sentMessages,
-                Map<Integer, ReceivedMessage> receivedMessages){
+                ArrayList<SentMessage> sentMessages,
+                ArrayList<ReceivedMessage> receivedMessages){
         this.username = username;
         this.sentMessages = sentMessages;
         this.receivedMessages = receivedMessages;

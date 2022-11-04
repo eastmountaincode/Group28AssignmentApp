@@ -2,7 +2,7 @@ package com.example.group28assignmentapp.database;
 
 public class ReceivedMessage {
     private String sender;
-    private int stickerID;
+    private Integer stickerID;
 
     public ReceivedMessage(String sender, int stickerID) {
         this.sender = sender;
@@ -23,5 +23,9 @@ public class ReceivedMessage {
 
     public int getStickerId() {
         return stickerID;
+    }
+
+    public String toString() {
+        return "Sender: " + this.sender.toString() + " " + "StickerID: " + this.stickerID.toString();
     }
 }

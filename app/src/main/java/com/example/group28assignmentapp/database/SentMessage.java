@@ -2,11 +2,11 @@ package com.example.group28assignmentapp.database;
 
 public class SentMessage {
     private String recipient;
-    private int stickerId;
+    private Integer stickerID;
 
     public SentMessage(String recipient, int stickerId) {
         this.recipient = recipient;
-        this.stickerId = stickerId;
+        this.stickerID = stickerId;
     }
 
     public void setRecipient(String recipient) {
@@ -14,7 +14,7 @@ public class SentMessage {
     }
 
     public void setStickerId(int stickerId) {
-        this.stickerId = stickerId;
+        this.stickerID = stickerId;
     }
 
     public String getRecipient() {
@@ -22,6 +22,10 @@ public class SentMessage {
     }
 
     public int getStickerId() {
-        return stickerId;
+        return stickerID;
+    }
+
+    public String toString() {
+        return "Recipient: " + this.recipient.toString() + " " + "StickerID: " + this.stickerID.toString();
     }
 }
