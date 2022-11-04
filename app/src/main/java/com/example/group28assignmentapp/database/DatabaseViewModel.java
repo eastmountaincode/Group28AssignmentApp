@@ -11,12 +11,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class DatabaseViewModel extends ViewModel {
-    private Set<String> listOfUsernames;
-    private Map<String, User> users;
+    private Set<String> listOfUsernames = new HashSet<>();
+    private Map<String, User> users = new HashMap<>();
     private User currentUser;
 
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
