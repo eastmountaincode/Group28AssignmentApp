@@ -1,22 +1,19 @@
 package com.example.group28assignmentapp.database;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.group28assignmentapp.R;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
-import com.example.group28assignmentapp.databinding.LoginDialogBinding;
 
 
 public class DatabaseLoginFragment extends Fragment {
@@ -31,6 +28,7 @@ public class DatabaseLoginFragment extends Fragment {
     }
 
     public static DatabaseLoginFragment newInstance() {
+        // TODO: what is this for?
         DatabaseLoginFragment fragment = new DatabaseLoginFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -41,11 +39,11 @@ public class DatabaseLoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        databaseViewModel.loadUsernames();
+        databaseViewModel.listenToDatabase();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
         setCreateAccountClickListener();
@@ -57,86 +55,72 @@ public class DatabaseLoginFragment extends Fragment {
      * PRIVATE METHODS
      **********************************************************************************************/
     private void setCreateAccountClickListener() {
-        binding.newUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                builder1.setMessage("New user.\nEnter your proposed username.");
-                // Set up the input
-                final EditText inputUsername = new EditText(getContext());
-                // Specify the type of input expected
-                inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder1.setView(inputUsername);
-                builder1.setCancelable(true);
+        binding.newUserButton.setOnClickListener(view -> {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+            builder1.setMessage("New user.\nEnter your proposed username.");
+            // Set up the input
+            final EditText inputUsername = new EditText(getContext());
+            // Specify the type of input expected
+            inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder1.setView(inputUsername);
+            builder1.setCancelable(true);
 
-                builder1.setPositiveButton(
-                        "Login",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String username = inputUsername.getText().toString();
-                                // TODO: Check username against list of Users in the DatabaseViewModel
-                                // If there are no duplicates then create a new User
+            builder1.setPositiveButton(
+                    "Login",
+                    (dialog, id) -> {
+                        String username = inputUsername.getText().toString();
+                        // TODO: Check username against list of Users in the DatabaseViewModel
+                        if (!databaseViewModel.userExists(username)) {
+                            // Create a new user if no duplicates
+                            databaseViewModel.createUser(username);
+                            // TODO: Go to logged in view!
+                        } else {
+                            Toast.makeText(getContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.cancel();
+                    });
 
+            builder1.setNegativeButton(
+                    "Cancel",
+                    (dialog, id) -> dialog.cancel());
 
-
-                                dialog.cancel();
-                            }
-                        });
-
-                builder1.setNegativeButton(
-                        "Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-            }
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
         });
     }
+
     private void setEnterUsernameClickListener() {
-        binding.enterUsernameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                builder1.setMessage("Returning user.\nEnter your username.");
-                // Set up the input
-                final EditText inputUsername = new EditText(getContext());
-                // Specify the type of input expected
-                inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder1.setView(inputUsername);
-                builder1.setCancelable(true);
+        binding.enterUsernameButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+            builder1.setMessage("Returning user.\nEnter your username.");
+            // Set up the input
+            final EditText inputUsername = new EditText(getContext());
+            // Specify the type of input expected
+            inputUsername.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder1.setView(inputUsername);
+            builder1.setCancelable(true);
 
-                builder1.setPositiveButton(
-                        "Login",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String username = inputUsername.getText().toString();
-                                // TODO: Check username against list of Users in the DatabaseViewModel
-                                // If the username matches what we have in the ViewModel, then set the
-                                // current user in the ViewModel and move to the next page.
-                                databaseViewModel.setCurrentUser(username);
-                                databaseViewModel.loadUsernames();
+            builder1.setPositiveButton(
+                    "Login",
+                    (dialog, id) -> {
+                        String username = inputUsername.getText().toString();
+                        // If the username matches what we have in the ViewModel, then set the
+                        // current user in the ViewModel and move to the next page.
+                        if (databaseViewModel.userExists(username)) {
+                            // TODO: Set current user in ViewModel!
+                            // TODO: Go to next screen
+                        } else {
+                            Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.cancel(); // TODO: Do we need this?
+                    });
 
+            builder1.setNegativeButton(
+                    "Cancel",
+                    (dialog, id) -> dialog.cancel());
 
-
-                                dialog.cancel();
-                            }
-                        });
-
-                builder1.setNegativeButton(
-                        "Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-            }
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
         });
     }
 }
