@@ -2,26 +2,30 @@ package com.example.group28assignmentapp.database;
 
 public class Sticker {
     private String associatedUser;
-    private int sticker_number;
+    private Integer sticker_number;
 
-    public Sticker(String sender, int stickerID) {
-        this.associatedUser = sender;
-        this.sticker_number = stickerID;
+    public Sticker() {
+        // Default constructor
     }
 
-    public void setAssociatedUser(String associatedUser) {
+    public Sticker(String associatedUser, Integer sticker_number) {
         this.associatedUser = associatedUser;
-    }
-
-    public void setStickerId(int stickerId) {
-        this.sticker_number = stickerId;
+        this.sticker_number = sticker_number;
     }
 
     public String getAssociatedUser() {
         return associatedUser;
     }
 
-    public int getStickerId() {
+    public void setAssociatedUser(String associatedUser) {
+        this.associatedUser = associatedUser;
+    }
+
+    public Integer getSticker_number() {
         return sticker_number;
+    }
+
+    public void setSticker_number(Integer sticker_number) {
+        this.sticker_number = sticker_number;
     }
 }
