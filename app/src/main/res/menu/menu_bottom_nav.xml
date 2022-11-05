@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/databaseSentListFragment"
-        android:icon="@drawable/ic_sent"
+        android:icon="@drawable/ic_baseline_send_24"
         android:title="Sent" />
     <item
         android:id="@+id/databaseReceivedListFragment"
-        android:icon="@drawable/ic_received"
+        android:icon="@drawable/ic_baseline_call_received_24"
         android:title="Received" />
 </menu>
