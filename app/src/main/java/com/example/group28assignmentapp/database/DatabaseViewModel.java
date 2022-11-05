@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +21,9 @@ import java.util.Set;
 
 public class DatabaseViewModel extends ViewModel {
     private final Set<String> listOfUsernames = new HashSet<>();
-    private final Map<String, User> users = new HashMap<>();
+    private MutableLiveData<Map<String, User>> users = new MutableLiveData<Map<String, User>>();
     private User currentUser;
+    private String currentUsername;
    
 
     // TODO: Abstract the Path outta this to some config file or enum or something
@@ -40,10 +42,13 @@ public class DatabaseViewModel extends ViewModel {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                users = new MutableLiveData<Map<String, User>>();
                 // loop all the data
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    users.put(Objects.requireNonNull(user).getUsername(), user);  //
+                    Map<String, User> newEntry = new HashMap<>();
+                    newEntry.put(Objects.requireNonNull(user).getUsername(), user);
+                    users.postValue(newEntry);  //
                     listOfUsernames.add(user.getUsername());  // For speedy lookup
                 }
             }
@@ -55,6 +60,7 @@ public class DatabaseViewModel extends ViewModel {
             }
         });
     }
+
 
     /**
      * Checks if user already exists in database. Case insensitive!
@@ -76,9 +82,21 @@ public class DatabaseViewModel extends ViewModel {
     }
 
     public void setCurrentUser(String username) {
-        this.currentUser = this.users.get(username);
+        this.currentUser = this.users.getValue().get(username);
+        this.currentUsername = username;
 
     }
 
+    public MutableLiveData<Map<String, User>> getUsers() {
+        return this.users;
+    }
 
+
+    public String getCurrentUsername() {
+        return this.currentUsername;
+    }
+
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
 }
