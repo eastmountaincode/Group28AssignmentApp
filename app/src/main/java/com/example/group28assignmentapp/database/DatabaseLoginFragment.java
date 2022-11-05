@@ -1,6 +1,7 @@
 package com.example.group28assignmentapp.database;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
 
 
@@ -51,6 +54,12 @@ public class DatabaseLoginFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
     /***********************************************************************************************
      * PRIVATE METHODS
      **********************************************************************************************/
@@ -69,11 +78,14 @@ public class DatabaseLoginFragment extends Fragment {
                     "Login",
                     (dialog, id) -> {
                         String username = inputUsername.getText().toString();
-                        // TODO: Check username against list of Users in the DatabaseViewModel
                         if (!databaseViewModel.userExists(username)) {
                             // Create a new user if no duplicates
                             databaseViewModel.createUser(username);
                             // TODO: Go to logged in view!
+                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            getActivity().startActivity(myIntent);
+                            //Navigation.findNavController(view).navigate(R.id.loginToMessageView);
+
                         } else {
                             Toast.makeText(getContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                         }
@@ -107,12 +119,15 @@ public class DatabaseLoginFragment extends Fragment {
                         // If the username matches what we have in the ViewModel, then set the
                         // current user in the ViewModel and move to the next page.
                         if (databaseViewModel.userExists(username)) {
-                            // TODO: Set current user in ViewModel!
+                            databaseViewModel.setCurrentUser(username);
                             // TODO: Go to next screen
+                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            getActivity().startActivity(myIntent);
+                            //Navigation.findNavController(v).navigate(R.id.loginToMessageView);
+
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
                         }
-                        dialog.cancel(); // TODO: Do we need this?
                     });
 
             builder1.setNegativeButton(

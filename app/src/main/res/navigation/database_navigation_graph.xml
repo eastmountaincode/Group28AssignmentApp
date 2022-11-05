@@ -10,4 +10,19 @@
         android:name="com.example.group28assignmentapp.database.DatabaseLoginFragment"
         android:label="fragment_database_login"
         tools:layout="@layout/fragment_database_login" />
+    <fragment
+        android:id="@+id/databaseSentListFragment"
+        android:name="com.example.group28assignmentapp.database.DatabaseSentListFragment"
+        android:label="fragment_database_sent_list"
+        tools:layout="@layout/fragment_database_sent_list" />
+    <fragment
+        android:id="@+id/databaseReceivedListFragment"
+        android:name="com.example.group28assignmentapp.database.DatabaseReceivedListFragment"
+        android:label="fragment_database_received_list"
+        tools:layout="@layout/fragment_database_received_list" />
+    <activity
+        android:id="@+id/messageViewActivity"
+        android:name="com.example.group28assignmentapp.database.MessageViewActivity"
+        android:label="activity_message_view"
+        tools:layout="@layout/activity_message_view" />
 </navigation>
