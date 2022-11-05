@@ -3,7 +3,6 @@ package com.example.group28assignmentapp.database;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +21,6 @@ public class DatabaseViewModel extends ViewModel {
     private final Set<String> listOfUsernames = new HashSet<>();
     private final Map<String, User> users = new HashMap<>();
     private User currentUser;
-   
 
     // TODO: Abstract the Path outta this to some config file or enum or something
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
