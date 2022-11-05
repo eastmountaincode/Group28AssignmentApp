@@ -1,6 +1,7 @@
 package com.example.group28assignmentapp.database;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -25,6 +26,7 @@ public class MessageViewActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.listContainerView);
+
         NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_database);
         bottomNav.setSelectedItemId(R.id.databaseSentListFragment);
@@ -35,6 +37,8 @@ public class MessageViewActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this,
                 navController,
                 appBarConfiguration);
+        navController.navigate(R.id.databaseSentListFragment);
+
 
     }
 
