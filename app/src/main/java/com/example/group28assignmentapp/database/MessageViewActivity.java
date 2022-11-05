@@ -35,6 +35,7 @@ public class MessageViewActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this,
                 navController,
                 appBarConfiguration);
+        navController.navigate(R.id.databaseSentListFragment);
 
     }
 
