@@ -1,11 +1,13 @@
 package com.example.group28assignmentapp.database.customrecycler;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +43,9 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.getAssociatedUser().setText(stickers.get(position).getAssociatedUser());
+        String stickerNumber = stickers.get(position).getSticker_number();
+        int id = context.getResources().getIdentifier(stickerNumber, "drawable", context.getPackageName());
+        holder.getStickerImage().setImageResource(id);
     }
 
     @Override
