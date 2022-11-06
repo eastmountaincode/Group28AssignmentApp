@@ -64,7 +64,7 @@ public class SimpleBottomNav extends Fragment {
             }
         });
 
-        binding.receivedButton.setOnClickListener(new View.OnClickListener() {
+        binding.sendStickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), RecipientChoiceList.class);
