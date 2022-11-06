@@ -18,4 +18,20 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         this.associatedUser = itemView.findViewById(R.id.associated_user_text);
         this.stickerImage = itemView.findViewById(R.id.sticker_image);
     }
+
+    public ImageView getStickerImage() {
+        return stickerImage;
+    }
+
+    public void setStickerImage(ImageView stickerImage) {
+        this.stickerImage = stickerImage;
+    }
+
+    public TextView getAssociatedUser() {
+        return associatedUser;
+    }
+
+    public void setAssociatedUser(TextView associatedUser) {
+        this.associatedUser = associatedUser;
+    }
 }

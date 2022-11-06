@@ -62,6 +62,14 @@ public class SentListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sent_list, container, false);
         stickerList = new ArrayList<>();
 
+        // Setup recycler view
+        recyclerView = view.findViewById(R.id.sent_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DatabaseRecyclerAdapter adapter = new DatabaseRecyclerAdapter(getContext(), stickerList);
+        recyclerView.setAdapter(adapter);
+
         // TODO: Get list of sent stickers from the database for a particular user DONE!!!
         username = sharedViewModel.getUsername();
         mDatabase = FirebaseDatabase.getInstance().getReference("users3/" + username + "/sent");
@@ -69,8 +77,6 @@ public class SentListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                //Log.d(TAG, dataSnapshot.toString());
-                //Log.d(TAG, String.valueOf(dataSnapshot.getValue()));
                 if ((dataSnapshot.getValue() == null)) {
                     stickerList = new ArrayList<>();
                     Log.d(TAG, "data snapshot is null");
@@ -88,12 +94,6 @@ public class SentListFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-        // Setup recycler view
-        recyclerView = view.findViewById(R.id.sent_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // TODO: add adapter with that list of sent stickers:
 //        recyclerView.setAdapter(new DatabaseRecyclerAdapter(sentStickers));
