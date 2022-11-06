@@ -27,17 +27,15 @@ import java.util.List;
 public class ReceivedListFragment extends Fragment {
     private RecyclerView recyclerView;
     private DatabaseReference mDatabase;
-    private MessageViewModel getSharedViewModel;
     private String username;
-    private List<Sticker> stickerList;
-
+    private ArrayList<Sticker> stickerList;
     private MessageViewModel sharedViewModel;
 
     public ReceivedListFragment() {
         // Required empty public constructor
     }
 
-    public static ReceivedListFragment newInstance(String param1, String param2) {
+    public static ReceivedListFragment newInstance() {
         ReceivedListFragment fragment = new ReceivedListFragment();
         return fragment;
     }
@@ -57,35 +55,32 @@ public class ReceivedListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.received_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        DatabaseRecyclerAdapter adapter = new DatabaseRecyclerAdapter(getContext(), (ArrayList<Sticker>) stickerList);
+
+        DatabaseRecyclerAdapter adapter = new DatabaseRecyclerAdapter(getContext(), stickerList);
+        recyclerView.setAdapter(adapter);
 
         username = sharedViewModel.getUsername();
         mDatabase = FirebaseDatabase.getInstance().getReference("users3/" + username + "/received");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 stickerList.clear();
 
-                if ((snapshot.getValue() == null)){
+                if ((dataSnapshot.getValue() == null)){
                     return;
                 }
-                for (DataSnapshot shot : snapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Sticker sticker = snapshot.getValue(Sticker.class);
                     stickerList.add(sticker);
                 }
-
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Failed to read value
             }
         });
-
-
-
-
 
         return view;
     }
