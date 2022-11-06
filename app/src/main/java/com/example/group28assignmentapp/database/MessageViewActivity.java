@@ -3,7 +3,6 @@ package com.example.group28assignmentapp.database;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.Navigator;
@@ -35,6 +34,12 @@ public class MessageViewActivity extends AppCompatActivity {
         binding = ActivityMessageViewBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_message_view);
 
+
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.listContainerView);
+        NavController navController = navHostFragment.getNavController();
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_database);
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -51,6 +56,10 @@ public class MessageViewActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+    }
 
 
 
