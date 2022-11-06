@@ -78,9 +78,7 @@ public class SentListFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "Attempting data change");
 
-                if (!stickerList.isEmpty()) {
-                    stickerList = new ArrayList<>();
-                }
+                stickerList.clear();  // Data Changed. Need to refresh list of stickers
 
                 if ((dataSnapshot.getValue() == null)) {
                     Log.d(TAG, "data snapshot is null");
