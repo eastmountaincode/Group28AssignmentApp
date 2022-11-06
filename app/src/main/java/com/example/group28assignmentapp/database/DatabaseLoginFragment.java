@@ -17,14 +17,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.group28assignmentapp.R;
+import com.example.group28assignmentapp.database.model.UserViewModel;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
 
 
 public class DatabaseLoginFragment extends Fragment {
 
     private FragmentDatabaseLoginBinding binding;
-
-
+    private UserViewModel sharedViewModel;
 
     public DatabaseLoginFragment() {
         // Required empty public constructor
@@ -41,6 +41,9 @@ public class DatabaseLoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: Move this into class scope?
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        sharedViewModel.mListenToDatabase();
     }
 
     @Override
@@ -116,9 +119,12 @@ public class DatabaseLoginFragment extends Fragment {
                         // current user in the ViewModel and move to the next page.
                         if (true) { // if databaseViewModel.userExists(username)
                             // TODO: Set logged in User
-
-                            // go to next screen after validation:
-                            Navigation.findNavController(this.getView()).navigate(R.id.action_databaseLoginFragment_to_receivedFragment);
+                            if (sharedViewModel.attemptToLoginUsername(username)) {
+                                // go to next screen after validation:
+                                Navigation.findNavController(this.getView()).navigate(R.id.action_databaseLoginFragment_to_receivedFragment);
+                            } else {
+                                Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
                         }
