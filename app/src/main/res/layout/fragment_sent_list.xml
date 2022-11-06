@@ -8,6 +8,7 @@
     tools:context=".database.SentListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sent_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
