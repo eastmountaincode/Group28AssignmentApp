@@ -43,6 +43,8 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.getAssociatedUser().setText(stickers.get(position).getAssociatedUser());
+
+        // Handle converting strings into resource ids
         String stickerNumber = stickers.get(position).getSticker_number();
         int id = context.getResources().getIdentifier(stickerNumber, "drawable", context.getPackageName());
         holder.getStickerImage().setImageResource(id);
