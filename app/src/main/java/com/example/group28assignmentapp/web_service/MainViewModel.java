@@ -2,9 +2,6 @@ package com.example.group28assignmentapp.web_service;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.group28assignmentapp.web_service.Category;
-import com.example.group28assignmentapp.web_service.Entry;
-
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
