@@ -121,10 +121,8 @@ public class DatabaseLoginFragment extends Fragment {
                         // current user in the ViewModel and move to the next page.
                         if (true) {
                             // TODO: Check if user exists and set current user
-
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             getActivity().startActivity(myIntent);
-
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
                         }
