@@ -77,8 +77,12 @@ public class SentListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "Attempting data change");
-                if ((dataSnapshot.getValue() == null)) {
+
+                if (!stickerList.isEmpty()) {
                     stickerList = new ArrayList<>();
+                }
+
+                if ((dataSnapshot.getValue() == null)) {
                     Log.d(TAG, "data snapshot is null");
                     return;
                 }
