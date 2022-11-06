@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,8 +26,10 @@ public class RecipientChoiceList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String currentUser;
     private DatabaseReference mDatabase;
+    private UserRecyclerAdapter.RecyclerViewClickListener listener;
     private ArrayList<String> usernameList;
     private final static String TAG = "REALTIME-DATABASE-RECIPIENTCHOICE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,16 @@ public class RecipientChoiceList extends AppCompatActivity {
         recyclerView = findViewById(R.id.usersRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        UserRecyclerAdapter adapter = new UserRecyclerAdapter(usernameList, currentUser);
+        listener = new UserRecyclerAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = new Intent(getApplicationContext(), StickerChoiceList.class);
+                intent.putExtra("username", currentUser);
+                intent.putExtra("chosenUser",usernameList.get(position));
+                startActivity(intent);
+            }
+        };
+        UserRecyclerAdapter adapter = new UserRecyclerAdapter(usernameList, currentUser,listener);
         recyclerView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("users3");
@@ -72,6 +83,7 @@ public class RecipientChoiceList extends AppCompatActivity {
 
 
     }
+
 
 
 }

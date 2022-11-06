@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Group28AssignmentApp"
         tools:targetApi="31">
         <activity
+            android:name=".database.sendUI.StickerChoiceList"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".database.sendUI.RecipientChoiceList"
             android:exported="false">
             <meta-data
@@ -22,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".database.MessageViewActivity"
+            android:name=".database.model.MessageViewModel"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,6 +37,13 @@
         </activity>
         <activity
             android:name=".LoggedInHome"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".database.MessageViewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

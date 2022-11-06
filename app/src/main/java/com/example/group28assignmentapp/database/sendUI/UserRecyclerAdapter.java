@@ -16,12 +16,13 @@ import java.util.List;
 public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapter.UserViewHolder> {
     List<String> usernames;
     String currentUser;
+    private RecyclerViewClickListener listener;
 
 
-    public UserRecyclerAdapter(List<String> usernames, String currentUser) {
+    public UserRecyclerAdapter(List<String> usernames, String currentUser, RecyclerViewClickListener listener) {
         this.usernames = usernames;
         this.currentUser = currentUser;
-
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,12 +46,18 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         return usernames.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder{
+
+    public interface RecyclerViewClickListener{
+        void onClick(View v, int position);
+    }
+
+    public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView user;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             this.user = itemView.findViewById(R.id.associated_user_text);
+            itemView.setOnClickListener(this);
         }
 
         public TextView getUser() {
@@ -59,6 +66,12 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
         public void setUser(TextView user) {
             this.user = user;
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view, getAdapterPosition());
+
         }
     }
 }
