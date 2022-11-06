@@ -8,12 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.group28assignmentapp.R;
-import com.example.group28assignmentapp.database.Sticker;
-import com.example.group28assignmentapp.database.customrecycler.DatabaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,20 +35,20 @@ public class RecipientChoiceList extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String currentUser = extras.getString("USERNAME");
+            this.currentUser = extras.getString("USERNAME");
         }
 
         usernameList = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.usersRecyclerView);
+        recyclerView = findViewById(R.id.stickerRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listener = new UserRecyclerAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), StickerChoiceList.class);
-                intent.putExtra("username", currentUser);
-                intent.putExtra("chosenUser",usernameList.get(position));
+                intent.putExtra("USERNAME", currentUser);
+                intent.putExtra("CHOSENUSER",usernameList.get(position));
                 startActivity(intent);
             }
         };

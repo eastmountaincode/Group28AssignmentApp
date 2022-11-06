@@ -19,12 +19,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="189dp">
+            android:layout_height="126dp">
 
             <ImageView
                 android:id="@+id/sticker_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/associated_user_text"
                 app:layout_constraintHorizontal_bias="0.5"
