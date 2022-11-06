@@ -76,7 +76,7 @@ public class SentListFragment extends Fragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                Log.d(TAG, "Attempting data change");
                 if ((dataSnapshot.getValue() == null)) {
                     stickerList = new ArrayList<>();
                     Log.d(TAG, "data snapshot is null");
@@ -86,7 +86,8 @@ public class SentListFragment extends Fragment {
                     Sticker sticker = snapshot.getValue(Sticker.class);
                     stickerList.add(sticker);
                 }
-                Log.d(TAG, stickerList.toString());
+                Log.d(TAG, "Data changed to " + stickerList.toString());
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -94,9 +95,6 @@ public class SentListFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-        // TODO: add adapter with that list of sent stickers:
-//        recyclerView.setAdapter(new DatabaseRecyclerAdapter(sentStickers));
 
         return view;
     }

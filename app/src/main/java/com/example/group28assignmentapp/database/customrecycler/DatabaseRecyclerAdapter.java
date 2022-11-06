@@ -30,19 +30,10 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        Context context = parent.getContext();
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//
-//        // Inflate the custom layout
-//        View contactView = inflater.inflate(R.layout.item_contact, parent, false);
-//
-//        // Return a new holder instance
-//        ViewHolder viewHolder = new ViewHolder(contactView);
-//        return viewHolder;
-
+        Log.d(TAG, this.stickers.toString());
         // Create a new view, which defines the UI of the list item
          View view = LayoutInflater.from(parent.getContext())
-                 .inflate(R.layout.recyclerview_row, parent, false);
+                 .inflate(R.layout.recycler_view_item, parent, false);
          return new RecyclerViewHolder(view);
 
     }
@@ -50,7 +41,6 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.getAssociatedUser().setText(stickers.get(position).getAssociatedUser());
-
     }
 
     @Override
@@ -60,6 +50,6 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
 
     @Override
     public int getItemViewType(final int position) {
-        return R.layout.recyclerview_row;
+        return R.layout.recycler_view_item;
     }
 }
