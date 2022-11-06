@@ -29,7 +29,10 @@ public class DatabaseListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         String nth_item = listOfReceivedStickers.get(position).toString();
-        holder.getView().setText(listOfReceivedStickers.get(position).toString());
+        holder.getAssociatedUserView().setText(listOfReceivedStickers.get(position)
+                .getAssociatedUser());
+        holder.getStickerView().setText(listOfReceivedStickers.get(position)
+                .getSticker_number().toString());
     }
 
     @Override
