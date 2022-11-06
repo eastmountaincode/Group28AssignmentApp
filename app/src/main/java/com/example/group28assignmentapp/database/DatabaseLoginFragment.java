@@ -42,6 +42,7 @@ public class DatabaseLoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: Move this into class scope?
+        // get the viewModel hosted by the _activity_:
         sharedViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         sharedViewModel.mListenToDatabase();
     }
