@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.Sticker;
 
 import java.util.List;
@@ -34,5 +35,10 @@ public class DatabaseListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public int getItemCount() {
         return this.listOfReceivedStickers.size();
+    }
+
+    @Override
+    public int getItemViewType(final int position) {
+        return R.layout.frame_textview;
     }
 }
