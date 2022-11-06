@@ -8,6 +8,24 @@
     <fragment
         android:id="@+id/databaseLoginFragment"
         android:name="com.example.group28assignmentapp.database.DatabaseLoginFragment"
-        android:label="fragment_database_login"
-        tools:layout="@layout/fragment_database_login" />
+        android:label="Login"
+        tools:layout="@layout/fragment_database_login" >
+        <action
+            android:id="@+id/action_databaseLoginFragment_to_receivedFragment"
+            app:destination="@id/receivedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receivedFragment"
+        android:name="com.example.group28assignmentapp.database.receivedFragment"
+        android:label="Received Stickers"
+        tools:layout="@layout/fragment_received" >
+        <action
+            android:id="@+id/action_receivedFragment_to_sentFragment"
+            app:destination="@id/sentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sentFragment"
+        android:name="com.example.group28assignmentapp.database.sentFragment"
+        android:label="Sent Stickers"
+        tools:layout="@layout/fragment_sent" />
 </navigation>
