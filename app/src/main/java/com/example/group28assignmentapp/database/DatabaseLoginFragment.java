@@ -57,7 +57,6 @@ public class DatabaseLoginFragment extends Fragment {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
         setCreateAccountClickListener();
         setEnterUsernameClickListener();
-
         return binding.getRoot();
     }
 

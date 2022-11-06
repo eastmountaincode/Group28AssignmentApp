@@ -31,7 +31,6 @@ public class SentListFragment extends Fragment {
      *
      * @return A new instance of fragment SentListFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SentListFragment newInstance() {
         SentListFragment fragment = new SentListFragment();
         return fragment;
@@ -48,7 +47,7 @@ public class SentListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sent_list, container, false);
 
-        // TODO: Get list of sent stickers from the database
+        // TODO: Get list of sent stickers from the database for a particular user
 
         // Setup recycler view
         recyclerView = view.findViewById(R.id.sent_recycler_view);
@@ -56,7 +55,7 @@ public class SentListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // TODO: add adapter with that list of sent stickers:
-//        recyclerView.setAdapter(new DatabaseRecyclerAdapter());
+//        recyclerView.setAdapter(new DatabaseRecyclerAdapter(sentStickers));
 
         return view;
     }
