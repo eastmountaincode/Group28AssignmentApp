@@ -5,10 +5,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.group28assignmentapp.database.model.UserViewModel;
 import com.example.group28assignmentapp.databinding.FragmentReceivedBinding;
@@ -22,6 +25,7 @@ public class receivedFragment extends Fragment {
 
     private FragmentReceivedBinding binding;
     private UserViewModel sharedViewModel;
+    private RecyclerView recyclerView;
 
     public receivedFragment() {
         // Required empty public constructor
@@ -54,6 +58,13 @@ public class receivedFragment extends Fragment {
         FragmentReceivedBinding bind = FragmentReceivedBinding.inflate(inflater, container,
                 false);
         binding = bind;
+
+        // Setup the recycler view:
+        recyclerView = binding.receivedRecyclerView;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+        recyclerView.setAdapter(new DatabaseListAdapter());  // TODO: set this up
+
         return binding.getRoot();
     }
 }
