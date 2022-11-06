@@ -7,15 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.group28assignmentapp.R;
 
-public class DatabaseMainActivity extends AppCompatActivity implements MessageViewActivity.OnFragmentInteractionListener{
+public class DatabaseMainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.database_activity_main);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri url) {
-
     }
 }

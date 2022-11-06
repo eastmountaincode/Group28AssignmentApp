@@ -18,13 +18,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.group28assignmentapp.LoggedInHome;
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
 
 
 public class DatabaseLoginFragment extends Fragment {
-
-    private DatabaseViewModel databaseViewModel;
     private FragmentDatabaseLoginBinding binding;
 
 
@@ -44,16 +43,6 @@ public class DatabaseLoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        databaseViewModel.listenToDatabase();
-
-
-//        OnBackPressedCallback callback = new OnBackPressedCallback() {
-//            @Override
-//            public void handleOnBackPressed() {
-//
-//            }
-//        }
     }
 
     @Override
@@ -91,11 +80,11 @@ public class DatabaseLoginFragment extends Fragment {
                     "Login",
                     (dialog, id) -> {
                         String username = inputUsername.getText().toString();
-                        if (!databaseViewModel.userExists(username)) {
-                            // Create a new user if no duplicates
-                            databaseViewModel.createUser(username);
+                        if (true) {
+                            // TODO: Create a new user if no duplicates
+
                             // TODO: Go to logged in view!
-                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            Intent myIntent = new Intent(getActivity(), LoggedInHome.class);
                             getActivity().startActivity(myIntent);
                             //Navigation.findNavController(view).navigate(R.id.loginToMessageView);
 
@@ -114,11 +103,6 @@ public class DatabaseLoginFragment extends Fragment {
         });
     }
 
-
-
-
-
-
     private void setEnterUsernameClickListener() {
         binding.enterUsernameButton.setOnClickListener(v -> {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
@@ -136,11 +120,10 @@ public class DatabaseLoginFragment extends Fragment {
                         String username = inputUsername.getText().toString();
                         // If the username matches what we have in the ViewModel, then set the
                         // current user in the ViewModel and move to the next page.
-                        if (databaseViewModel.userExists(username)) {
-                            databaseViewModel.setCurrentUser(username);
-                            // TODO: Go to next screen
+                        if (true) {
+                            // TODO: Check if user exists and set current user
 
-                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            Intent myIntent = new Intent(getActivity(), LoggedInHome.class);
                             getActivity().startActivity(myIntent);
                             //Navigation.findNavController(v).navigate(R.id.loginToMessageView);
 
