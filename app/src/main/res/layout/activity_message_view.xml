@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".database.MessageViewActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navContainer"
+        android:name="com.example.group28assignmentapp.database.SimpleBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_simple_bottom_nav" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/messageContainer"
+        android:name="com.example.group28assignmentapp.database.SentListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navContainer"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_sent_list"
+        tools:layout_editor_absoluteX="200dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

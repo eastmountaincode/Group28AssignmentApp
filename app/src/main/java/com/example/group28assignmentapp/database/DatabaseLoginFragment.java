@@ -84,9 +84,8 @@ public class DatabaseLoginFragment extends Fragment {
                             // TODO: Create a new user if no duplicates
 
                             // TODO: Go to logged in view!
-                            Intent myIntent = new Intent(getActivity(), LoggedInHome.class);
+                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             getActivity().startActivity(myIntent);
-                            //Navigation.findNavController(view).navigate(R.id.loginToMessageView);
 
                         } else {
                             Toast.makeText(getContext(), "Username already exists", Toast.LENGTH_SHORT).show();
@@ -123,9 +122,8 @@ public class DatabaseLoginFragment extends Fragment {
                         if (true) {
                             // TODO: Check if user exists and set current user
 
-                            Intent myIntent = new Intent(getActivity(), LoggedInHome.class);
+                            Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             getActivity().startActivity(myIntent);
-                            //Navigation.findNavController(v).navigate(R.id.loginToMessageView);
 
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
