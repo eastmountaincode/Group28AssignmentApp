@@ -1,5 +1,7 @@
 package com.example.group28assignmentapp.database.sendUI;
 
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +52,7 @@ public class RecipientChoiceList extends AppCompatActivity {
                 intent.putExtra("USERNAME", currentUser);
                 intent.putExtra("CHOSENUSER",usernameList.get(position));
                 startActivity(intent);
+                finish();
             }
         };
         UserRecyclerAdapter adapter = new UserRecyclerAdapter(usernameList, currentUser,listener);

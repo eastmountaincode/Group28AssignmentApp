@@ -72,8 +72,7 @@ public class DatabaseLoginFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // loop all the data
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    listOfUsernames.add(user.getUsername());  // For speedy lookup
+                    listOfUsernames.add(snapshot.getKey());  // For speedy lookup
                 }
                 Log.d(TAG, listOfUsernames.toString());
             }
@@ -111,6 +110,7 @@ public class DatabaseLoginFragment extends Fragment {
                             // Go to logged in view!
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             myIntent.putExtra("USERNAME", username);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             getActivity().startActivity(myIntent);
 
                         } else {
@@ -149,6 +149,7 @@ public class DatabaseLoginFragment extends Fragment {
                             // Check if user exists and set current user
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             myIntent.putExtra("USERNAME", username);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             getActivity().startActivity(myIntent);
 
                         } else {
