@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.group28assignmentapp.database.model.UserViewModel;
+import com.example.group28assignmentapp.database.recyclerviews.DatabaseListAdapter;
 import com.example.group28assignmentapp.databinding.FragmentReceivedBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +66,8 @@ public class receivedFragment extends Fragment {
         recyclerView = binding.receivedRecyclerView;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-        recyclerView.setAdapter(new DatabaseListAdapter());  // TODO: set this up
+        List<Sticker> ls_of_stickers = sharedViewModel.user.getValue().getReceived();
+        recyclerView.setAdapter(new DatabaseListAdapter(sharedViewModel.user.getValue().getReceived()));  // TODO: set this up
 
         return binding.getRoot();
     }
