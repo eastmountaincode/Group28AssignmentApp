@@ -1,6 +1,7 @@
 package com.example.group28assignmentapp.database.sendUI;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.group28assignmentapp.R;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecyclerAdapter.StickerViewHolder>{
     String currentUser;
     private StickerRecyclerAdapter.RecyclerViewClickListener listener;
     private Context context;
+    private ArrayList<Drawable> stickerList;
 
 
     public StickerRecyclerAdapter(String currentUser, StickerRecyclerAdapter.RecyclerViewClickListener listener) {
@@ -30,13 +36,17 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item, parent, false);
         this.context = parent.getContext();
+        this.stickerList = new ArrayList<>(Arrays.asList(AppCompatResources.getDrawable(this.context, R.drawable.pavlu),
+                AppCompatResources.getDrawable(this.context, R.drawable.clark),
+                AppCompatResources.getDrawable(this.context, R.drawable.feinberg),
+                AppCompatResources.getDrawable(this.context, R.drawable.park)));
         return new StickerViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull StickerRecyclerAdapter.StickerViewHolder holder, int position) {
-        holder.getSticker().setImageDrawable(AppCompatResources.getDrawable(this.context, R.drawable.pavlu));
+        holder.getSticker().setImageDrawable(stickerList.get(position));
 
     }
 

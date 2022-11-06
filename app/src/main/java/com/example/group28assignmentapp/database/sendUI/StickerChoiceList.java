@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -34,11 +33,13 @@ public class StickerChoiceList extends AppCompatActivity {
         listener = new StickerRecyclerAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                // add a new sticker to the database based
+                // add a new message event to the database based
                 // on who sent it, who is getting it, and which
                 // sticker it was
             }
         };
+        StickerRecyclerAdapter adapter = new StickerRecyclerAdapter(this.currentUser, listener);
+        recyclerView.setAdapter(adapter);
 
 
 
