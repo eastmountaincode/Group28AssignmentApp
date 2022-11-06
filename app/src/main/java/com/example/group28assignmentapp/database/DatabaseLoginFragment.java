@@ -4,27 +4,32 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
-import com.example.group28assignmentapp.LoggedInHome;
-import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.databinding.FragmentDatabaseLoginBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class DatabaseLoginFragment extends Fragment {
+    private final Set<String> listOfUsernames = new HashSet<>();
     private FragmentDatabaseLoginBinding binding;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
+    private final String TAG = "REALTIME-DATABASE";
 
 
 
@@ -43,6 +48,7 @@ public class DatabaseLoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listenToDatabase();
     }
 
     @Override
@@ -51,6 +57,7 @@ public class DatabaseLoginFragment extends Fragment {
         binding = FragmentDatabaseLoginBinding.inflate(inflater, container, false);
         setCreateAccountClickListener();
         setEnterUsernameClickListener();
+
         return binding.getRoot();
     }
 
@@ -60,6 +67,24 @@ public class DatabaseLoginFragment extends Fragment {
         binding = null;
     }
 
+    public void listenToDatabase() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // loop all the data
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    listOfUsernames.add(user.getUsername());  // For speedy lookup
+                }
+                Log.d(TAG, listOfUsernames.toString());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
 
 
     /***********************************************************************************************
@@ -80,11 +105,13 @@ public class DatabaseLoginFragment extends Fragment {
                     "Login",
                     (dialog, id) -> {
                         String username = inputUsername.getText().toString();
-                        if (true) {
-                            // TODO: Create a new user if no duplicates
-
-                            // TODO: Go to logged in view!
+                        if (!listOfUsernames.contains(username)) {
+                            // Create a new user if no duplicates
+                            User newUser = new User(username);
+                            mDatabase.child(username).setValue(newUser);
+                            // Go to logged in view!
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            myIntent.putExtra("USERNAME", username);
                             getActivity().startActivity(myIntent);
 
                         } else {
@@ -119,10 +146,12 @@ public class DatabaseLoginFragment extends Fragment {
                         String username = inputUsername.getText().toString();
                         // If the username matches what we have in the ViewModel, then set the
                         // current user in the ViewModel and move to the next page.
-                        if (true) {
-                            // TODO: Check if user exists and set current user
+                        if (listOfUsernames.contains(username)) {
+                            // Check if user exists and set current user
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
+                            myIntent.putExtra("USERNAME", username);
                             getActivity().startActivity(myIntent);
+
                         } else {
                             Toast.makeText(getContext(), "Username not found", Toast.LENGTH_SHORT).show();
                         }

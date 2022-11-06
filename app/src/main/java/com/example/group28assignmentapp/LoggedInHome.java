@@ -1,8 +1,8 @@
 package com.example.group28assignmentapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoggedInHome extends AppCompatActivity {
 
