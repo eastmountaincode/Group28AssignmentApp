@@ -22,6 +22,7 @@ public class DatabaseViewModel extends ViewModel {
     private final Map<String, User> users = new HashMap<>();
     private User currentUser;
 
+
     // TODO: Abstract the Path outta this to some config file or enum or something
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
     private final String TAG = "REALTIME-DATABASE";

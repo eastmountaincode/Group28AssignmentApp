@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -43,6 +46,14 @@ public class DatabaseLoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         databaseViewModel.listenToDatabase();
+
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback() {
+//            @Override
+//            public void handleOnBackPressed() {
+//
+//            }
+//        }
     }
 
     @Override
@@ -59,6 +70,8 @@ public class DatabaseLoginFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 
     /***********************************************************************************************
      * PRIVATE METHODS
@@ -101,6 +114,11 @@ public class DatabaseLoginFragment extends Fragment {
         });
     }
 
+
+
+
+
+
     private void setEnterUsernameClickListener() {
         binding.enterUsernameButton.setOnClickListener(v -> {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
@@ -121,6 +139,7 @@ public class DatabaseLoginFragment extends Fragment {
                         if (databaseViewModel.userExists(username)) {
                             databaseViewModel.setCurrentUser(username);
                             // TODO: Go to next screen
+
                             Intent myIntent = new Intent(getActivity(), MessageViewActivity.class);
                             getActivity().startActivity(myIntent);
                             //Navigation.findNavController(v).navigate(R.id.loginToMessageView);
