@@ -28,4 +28,12 @@ public class Sticker {
     public void setSticker_number(Integer sticker_number) {
         this.sticker_number = sticker_number;
     }
+
+    @Override
+    public String toString() {
+        return "Sticker{" +
+                "associatedUser='" + associatedUser + '\'' +
+                ", sticker_number=" + sticker_number +
+                '}';
+    }
 }
