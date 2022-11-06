@@ -17,6 +17,7 @@ import com.example.group28assignmentapp.database.model.UserViewModel;
 import com.example.group28assignmentapp.database.recyclerviews.DatabaseListAdapter;
 import com.example.group28assignmentapp.databinding.FragmentReceivedBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,8 +67,11 @@ public class receivedFragment extends Fragment {
         recyclerView = binding.receivedRecyclerView;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-        List<Sticker> ls_of_stickers = sharedViewModel.user.getValue().getReceived();
-        recyclerView.setAdapter(new DatabaseListAdapter(sharedViewModel.user.getValue().getReceived()));  // TODO: set this up
+        List<Sticker> listOfStickers = sharedViewModel.user.getValue().getReceived();
+        if (listOfStickers == null) {
+            listOfStickers = new ArrayList<>();  // set to an empty ArrayList if empty.
+        }
+        recyclerView.setAdapter(new DatabaseListAdapter(listOfStickers));
 
         return binding.getRoot();
     }
