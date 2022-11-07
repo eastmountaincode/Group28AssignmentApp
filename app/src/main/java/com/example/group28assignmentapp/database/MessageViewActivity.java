@@ -10,6 +10,7 @@ import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.model.MessageViewModel;
@@ -26,7 +27,6 @@ public class MessageViewActivity extends AppCompatActivity {
         sharedViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
         sharedViewModel.setUsername(username);
         setContentView(R.layout.activity_message_view);
-
     }
 
     private void createNotificationChannel() {
@@ -56,5 +56,16 @@ public class MessageViewActivity extends AppCompatActivity {
                         .setNegativeButton("No",null)
                                 .show();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Need to override actionbar back button to call onBackPressed() so that we make sure that
+        // users _really_ want to log out when they press back
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }
