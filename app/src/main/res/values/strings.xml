@@ -4,8 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_str">Get</string>
     <string name="welcome_to_the_app">Welcome To The App</string>
-    <string name="new_user">New User</string>
-    <string name="enter_username">Enter Username</string>
+    <string name="new_user">Create New User</string>
+    <string name="enter_username">Existing User Login</string>
     <string name="username_prompt">username</string>
     <string name="password_prompt">password</string>
 
