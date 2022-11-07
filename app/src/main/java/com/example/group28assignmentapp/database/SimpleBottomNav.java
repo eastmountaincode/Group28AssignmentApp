@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.group28assignmentapp.R;
+import com.example.group28assignmentapp.database.history.History_Activity;
 import com.example.group28assignmentapp.database.model.MessageViewModel;
 import com.example.group28assignmentapp.database.sendUI.RecipientChoiceList;
 import com.example.group28assignmentapp.databinding.FragmentSimpleBottomNavBinding;
@@ -68,6 +69,15 @@ public class SimpleBottomNav extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), RecipientChoiceList.class);
+                myIntent.putExtra("USERNAME", sharedViewModel.getUsername());
+                startActivity(myIntent);
+            }
+        });
+
+        binding.historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), History_Activity.class);
                 myIntent.putExtra("USERNAME", sharedViewModel.getUsername());
                 startActivity(myIntent);
             }
