@@ -105,6 +105,7 @@ public class ReceivedListFragment extends Fragment {
         return view;
     }
 
+    // Method adapted from example code provided in class:
     public void notifyNewMessageReceived() {
         // Build notification:
         String channelID = getString(R.string.channel_id);
