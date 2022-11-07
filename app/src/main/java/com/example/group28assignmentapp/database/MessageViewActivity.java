@@ -1,105 +1,60 @@
 package com.example.group28assignmentapp.database;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.Navigator;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.group28assignmentapp.R;
-import com.example.group28assignmentapp.databinding.ActivityMessageViewBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.group28assignmentapp.database.model.MessageViewModel;
 
 public class MessageViewActivity extends AppCompatActivity {
-    private ActivityMessageViewBinding binding;
-    BottomNavigationView bottomNavigationView;
-    DatabaseLoginFragment databaseLoginFragment;
-    DatabaseReceivedListFragment databaseReceivedListFragment;
-    DatabaseSentListFragment databaseSentListFragment;
-
+    private String username;
+    private MessageViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMessageViewBinding.inflate(getLayoutInflater());
+        createNotificationChannel();
+        username = getIntent().getStringExtra("USERNAME");
+        sharedViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
+        sharedViewModel.setUsername(username);
         setContentView(R.layout.activity_message_view);
 
-
-
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.listContainerView);
-        NavController navController = navHostFragment.getNavController();
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_database);
-        bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.databaseSentListFragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.listContainerView, new DatabaseSentListFragment()).commit();
-                        return true;
-                    case R.id.databaseReceivedListFragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.listContainerView, new DatabaseReceivedListFragment()).commit();
-                        return true;
-                }
-                return false;
-            }
-        });
-
-
-
-
     }
 
-
-
-
-
-
-
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.listContainerView);
-
-
-
-
-//                bottomNav.setSelectedItemId(R.id.databaseSentListFragment);
-//
-//        NavigationUI.setupWithNavController(bottomNav, navController);
-//
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration
-//                .Builder(R.id.databaseSentListFragment, R.id.databaseReceivedListFragment)
-//                .build();
-//        NavigationUI.setupActionBarWithNavController(this,
-//                navController,
-//                appBarConfiguration);
-//        navController.navigate(R.id.databaseSentListFragment);
-
-
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(getString(R.string.channel_id), name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to log out?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                        .setNegativeButton("No",null)
+                                .show();
 
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        NavController navController = Navigation.findNavController(this,
-//                R.id.listContainerView);
-//        return NavigationUI.onNavDestinationSelected(item, navController)
-//                || super.onOptionsItemSelected(item);
-//    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }
