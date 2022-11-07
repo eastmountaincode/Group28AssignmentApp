@@ -1,7 +1,5 @@
 package com.example.group28assignmentapp.database;
 
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -32,7 +32,6 @@ public class DatabaseLoginFragment extends Fragment {
     private final String TAG = "REALTIME-DATABASE";
 
 
-
     public DatabaseLoginFragment() {
         // Required empty public constructor
     }
@@ -76,6 +75,7 @@ public class DatabaseLoginFragment extends Fragment {
                 }
                 Log.d(TAG, listOfUsernames.toString());
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value

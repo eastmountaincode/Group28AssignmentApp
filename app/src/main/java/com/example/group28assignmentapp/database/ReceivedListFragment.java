@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ReceivedListFragment extends Fragment {
@@ -79,13 +78,13 @@ public class ReceivedListFragment extends Fragment {
                 stickerList.clear();
 
                 // If no stickers have been received, the snapshot value will be null
-                if ((snapshot.getValue() == null)){
+                if ((snapshot.getValue() == null)) {
                     return;
                 }
 
                 // Every child of the snapshot is a Sticker. We want to add all these stickers to
                 // our list of stickers
-                for (DataSnapshot shot : snapshot.getChildren()){
+                for (DataSnapshot shot : snapshot.getChildren()) {
                     Sticker sticker = shot.getValue(Sticker.class);
                     stickerList.add(sticker);
                 }

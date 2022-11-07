@@ -1,11 +1,11 @@
 package com.example.group28assignmentapp.database.sendUI;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.Sticker;
@@ -59,7 +59,6 @@ public class StickerChoiceList extends AppCompatActivity {
         };
         StickerRecyclerAdapter adapter = new StickerRecyclerAdapter(this.currentUser, listener);
         recyclerView.setAdapter(adapter);
-
 
 
     }

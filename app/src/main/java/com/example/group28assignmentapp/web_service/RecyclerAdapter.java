@@ -13,9 +13,10 @@ import com.example.group28assignmentapp.R;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>{
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     Context context;
     List<Entry> listOfTopSongs;
+
     public RecyclerAdapter(Context context, List<Entry> listOfTopSongs) {
         this.context = context;
         this.listOfTopSongs = listOfTopSongs;
@@ -25,7 +26,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public RecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.recyclerview_row, parent,false);
+        View view = inflater.inflate(R.layout.recyclerview_row, parent, false);
 
         return new RecyclerAdapter.MyViewHolder(view);
     }
@@ -42,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return listOfTopSongs.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView artist, name, rank;
 
         public MyViewHolder(@NonNull View itemView) {

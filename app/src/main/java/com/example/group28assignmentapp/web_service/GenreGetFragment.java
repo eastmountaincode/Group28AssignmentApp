@@ -24,14 +24,13 @@ public class GenreGetFragment extends Fragment {
     private MainViewModel viewModel;
 
 
-
-
-
     public GenreGetFragment() {
         // Required empty public constructor
     }
 
-    public static GenreGetFragment newInstance() {return new GenreGetFragment();}
+    public static GenreGetFragment newInstance() {
+        return new GenreGetFragment();
+    }
 
 
     @Override
@@ -46,7 +45,6 @@ public class GenreGetFragment extends Fragment {
         binding = FragmentGenreGetBinding.inflate(inflater, container, false);
         ViewModelProvider viewModelProvider = new ViewModelProvider(this);
         viewModel = viewModelProvider.get(MainViewModel.class);
-
 
 
         spinner = binding.genreSpinner;
@@ -66,7 +64,7 @@ public class GenreGetFragment extends Fragment {
             }
         });
 
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(getContext(), R.array.charts, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.charts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
 

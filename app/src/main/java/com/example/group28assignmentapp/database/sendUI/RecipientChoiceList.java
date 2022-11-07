@@ -1,16 +1,14 @@
 package com.example.group28assignmentapp.database.sendUI;
 
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.example.group28assignmentapp.R;
 import com.google.firebase.database.DataSnapshot;
@@ -50,12 +48,12 @@ public class RecipientChoiceList extends AppCompatActivity {
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), StickerChoiceList.class);
                 intent.putExtra("USERNAME", currentUser);
-                intent.putExtra("CHOSENUSER",usernameList.get(position));
+                intent.putExtra("CHOSENUSER", usernameList.get(position));
                 startActivity(intent);
                 finish();
             }
         };
-        UserRecyclerAdapter adapter = new UserRecyclerAdapter(usernameList, currentUser,listener);
+        UserRecyclerAdapter adapter = new UserRecyclerAdapter(usernameList, currentUser, listener);
         recyclerView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("users3");
@@ -65,10 +63,10 @@ public class RecipientChoiceList extends AppCompatActivity {
                 Log.d(TAG, snapshot.toString());
                 usernameList.clear();
 
-                if ((snapshot.getValue() == null)){
+                if ((snapshot.getValue() == null)) {
                     return;
                 }
-                for (DataSnapshot shot : snapshot.getChildren()){
+                for (DataSnapshot shot : snapshot.getChildren()) {
                     usernameList.add(shot.getKey().toString());
                 }
 
@@ -83,7 +81,6 @@ public class RecipientChoiceList extends AppCompatActivity {
 
 
     }
-
 
 
 }

@@ -8,11 +8,11 @@ public class User {
     private List<Sticker> received;
     private List<Sticker> sent;
 
-    public User(){
+    public User() {
         // Default constructor necessary for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username){
+    public User(String username) {
         this.username = username;
         this.received = new ArrayList<>();
         this.sent = new ArrayList<>();

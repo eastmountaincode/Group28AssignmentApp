@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -14,11 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.group28assignmentapp.R;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecyclerAdapter.StickerViewHolder>{
+public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecyclerAdapter.StickerViewHolder> {
     String currentUser;
     private StickerRecyclerAdapter.RecyclerViewClickListener listener;
     private Context context;
@@ -56,11 +54,11 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
     }
 
 
-    public interface RecyclerViewClickListener{
+    public interface RecyclerViewClickListener {
         void onClick(View v, int position);
     }
 
-    public class StickerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class StickerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView sticker;
 
         public StickerViewHolder(@NonNull View itemView) {

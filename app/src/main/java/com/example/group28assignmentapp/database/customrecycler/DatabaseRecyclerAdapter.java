@@ -1,22 +1,18 @@
 package com.example.group28assignmentapp.database.customrecycler;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.Sticker;
-import com.example.group28assignmentapp.web_service.RecyclerAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     ArrayList<Sticker> stickers;
@@ -34,9 +30,9 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, this.stickers.toString());
         // Create a new view, which defines the UI of the list item
-         View view = LayoutInflater.from(parent.getContext())
-                 .inflate(R.layout.recycler_view_item, parent, false);
-         return new RecyclerViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recycler_view_item, parent, false);
+        return new RecyclerViewHolder(view);
 
     }
 

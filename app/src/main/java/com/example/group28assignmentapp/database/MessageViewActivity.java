@@ -1,9 +1,5 @@
 package com.example.group28assignmentapp.database;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,6 +7,9 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.model.MessageViewModel;
@@ -53,8 +52,8 @@ public class MessageViewActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-                        .setNegativeButton("No",null)
-                                .show();
+                .setNegativeButton("No", null)
+                .show();
 
     }
 

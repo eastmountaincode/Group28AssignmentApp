@@ -10,8 +10,6 @@ import com.example.group28assignmentapp.database.DatabaseMainActivity;
 import com.example.group28assignmentapp.databinding.ActivityMainBinding;
 import com.example.group28assignmentapp.web_service.WebServiceActivity;
 
-import java.security.acl.Group;
-
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
@@ -42,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, GroupIntroduction.class));
             }
         });
-
-
 
 
     }

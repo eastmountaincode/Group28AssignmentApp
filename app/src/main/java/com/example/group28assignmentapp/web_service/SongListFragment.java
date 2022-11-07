@@ -43,7 +43,6 @@ public class SongListFragment extends Fragment {
     private LoadingDialog loadingDialog;
 
 
-
     public SongListFragment() {
         // Required empty public constructor
     }
@@ -51,7 +50,6 @@ public class SongListFragment extends Fragment {
     public static SongListFragment newInstance() {
         return new SongListFragment();
     }
-
 
 
     @Override
@@ -65,7 +63,6 @@ public class SongListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSongListBinding.inflate(inflater, container, false);
         recyclerView = binding.songListView;
-
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -200,7 +197,6 @@ public class SongListFragment extends Fragment {
                 viewModel.setEntryList(listOfTopSongs);
                 recyclerView.setAdapter(new RecyclerAdapter(binding.getRoot().getContext(),
                         viewModel.getEntryList()));
-
 
 
                 loadingDialog.dismissDialog();

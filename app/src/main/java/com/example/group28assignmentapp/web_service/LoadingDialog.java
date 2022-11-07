@@ -16,10 +16,10 @@ public class LoadingDialog {
     private Timer timer;
     private TimerTask timerTask;
 
-    LoadingDialog (Activity activity) {
+    LoadingDialog(Activity activity) {
         this.activity = activity;
 
-        timer =  new Timer();
+        timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {
