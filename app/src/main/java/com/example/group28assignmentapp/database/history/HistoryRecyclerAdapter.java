@@ -1,38 +1,40 @@
-package com.example.group28assignmentapp.database.sendUI;
+package com.example.group28assignmentapp.database.history;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.example.group28assignmentapp.R;
+import com.example.group28assignmentapp.database.sendUI.StickerRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecyclerAdapter.StickerViewHolder> {
-    String currentUser;
-    private StickerRecyclerAdapter.RecyclerViewClickListener listener;
+public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryViewHolder>  {
+    private String currentUser;
     private Context context;
     private ArrayList<Drawable> stickerList;
+    private ArrayList<Integer> countList;
 
-
-
-    public StickerRecyclerAdapter(String currentUser, StickerRecyclerAdapter.RecyclerViewClickListener listener) {
+    public HistoryRecyclerAdapter(String currentUser, ArrayList<Integer> countList) {
         this.currentUser = currentUser;
-        this.listener = listener;
+        this.countList = countList;
     }
 
 
     @NonNull
     @Override
-    public StickerRecyclerAdapter.StickerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HistoryRecyclerAdapter.HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item, parent, false);
         this.context = parent.getContext();
@@ -40,13 +42,13 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
                 AppCompatResources.getDrawable(this.context, R.drawable.clark),
                 AppCompatResources.getDrawable(this.context, R.drawable.feinberg),
                 AppCompatResources.getDrawable(this.context, R.drawable.park)));
-        return new StickerViewHolder(view);
+        return new HistoryRecyclerAdapter.HistoryViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull StickerRecyclerAdapter.StickerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryRecyclerAdapter.HistoryViewHolder holder, int position) {
         holder.getSticker().setImageDrawable(stickerList.get(position));
+        holder.getText().setText("# sent =  " + String.valueOf(countList.get(position)));
 
     }
 
@@ -55,18 +57,15 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
         return 4;
     }
 
-
-    public interface RecyclerViewClickListener {
-        void onClick(View v, int position);
-    }
-
-    public class StickerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class HistoryViewHolder extends RecyclerView.ViewHolder {
         private ImageView sticker;
+        private TextView text;
 
-        public StickerViewHolder(@NonNull View itemView) {
+        public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             this.sticker = itemView.findViewById(R.id.sticker_image);
-            itemView.setOnClickListener(this);
+            this.text = itemView.findViewById(R.id.associated_user_text);
+
         }
 
         public ImageView getSticker() {
@@ -77,10 +76,12 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
             this.sticker = sticker;
         }
 
-        @Override
-        public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+        public TextView getText() {
+            return text;
+        }
 
+        public void setText(TextView text) {
+            this.text = text;
         }
     }
 }

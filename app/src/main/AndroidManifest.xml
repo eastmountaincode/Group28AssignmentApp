@@ -15,6 +15,20 @@
         android:theme="@style/Theme.Group28AssignmentApp"
         tools:targetApi="31">
         <activity
+            android:name=".database.history.HistoryRecyclerAdapter"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".database.history.History_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".GroupIntroduction"
             android:exported="false"
             android:parentActivityName=".MainActivity">
@@ -62,7 +76,7 @@
         <activity
             android:name=".database.DatabaseMainActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".web_service.WebServiceActivity"
             android:exported="false"

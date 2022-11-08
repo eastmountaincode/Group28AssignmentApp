@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +32,7 @@ public class DatabaseLoginFragment extends Fragment {
     private FragmentDatabaseLoginBinding binding;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users3");
     private final String TAG = "REALTIME-DATABASE";
+
 
 
     public DatabaseLoginFragment() {

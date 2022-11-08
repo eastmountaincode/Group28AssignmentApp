@@ -13,11 +13,13 @@ import com.example.group28assignmentapp.R;
 import com.example.group28assignmentapp.database.Sticker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     ArrayList<Sticker> stickers;
     private final static String TAG = "REALTIME-DATABASE-ADAPTER";
     private Context context;
+    private ArrayList<String> stickerStringList = new ArrayList<>(Arrays.asList("pavlu", "clark", "feinberg", "park"));
 
     public DatabaseRecyclerAdapter(Context context, ArrayList<Sticker> stickers) {
         this.stickers = stickers;
@@ -42,7 +44,15 @@ public class DatabaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHo
 
         // Handle converting strings into resource ids
         String stickerNumber = stickers.get(position).getSticker_number();
-        int id = context.getResources().getIdentifier(stickerNumber, "drawable", context.getPackageName());
+        // Handle case where stickerNumber, the name of the sticker, is not known to us possibly
+        // because someone is using a different version of the app
+        int id;
+        if (stickerStringList.contains(stickerNumber)) {
+            id = context.getResources().getIdentifier(stickerNumber, "drawable", context.getPackageName());
+        }
+        else {
+            id = context.getResources().getIdentifier("error", "drawable", context.getPackageName());
+        }
         holder.getStickerImage().setImageResource(id);
     }
 
