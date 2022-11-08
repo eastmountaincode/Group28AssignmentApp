@@ -48,6 +48,8 @@ public class History_Activity extends AppCompatActivity {
                     String stickerName = snapshot.child("sticker_number").getValue().toString();
                     Integer index = stickerStringList.indexOf(stickerName);
                     countList.set(index, countList.get(index) + 1);
+                    HistoryRecyclerAdapter adapter = new HistoryRecyclerAdapter(currentUser, countList);
+                    recyclerView.setAdapter(adapter);
 
                 }
                 Log.d(TAG, countList.toString());
