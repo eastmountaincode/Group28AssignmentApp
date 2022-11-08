@@ -19,7 +19,6 @@
             android:fontFamily="sans-serif-thin"
             android:gravity="center"
             android:text="Sent Stickers"
-            android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/sent_recycler_view"

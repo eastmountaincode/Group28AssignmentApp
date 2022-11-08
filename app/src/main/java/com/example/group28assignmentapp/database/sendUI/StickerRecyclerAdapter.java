@@ -23,10 +23,12 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
     private ArrayList<Drawable> stickerList;
 
 
+
     public StickerRecyclerAdapter(String currentUser, StickerRecyclerAdapter.RecyclerViewClickListener listener) {
         this.currentUser = currentUser;
         this.listener = listener;
     }
+
 
     @NonNull
     @Override
@@ -71,7 +73,7 @@ public class StickerRecyclerAdapter extends RecyclerView.Adapter<StickerRecycler
             return sticker;
         }
 
-        public void setUser(ImageView sticker) {
+        public void setSticker(ImageView sticker) {
             this.sticker = sticker;
         }
 
